@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<body>
+  no : <input type="text" id="no">
+
+
+  <input type="button" value="버튼" id="button1">
+  <br>
+  <span id="resultArea"></span>
+
+  <script>
+    $("#button1").click(function() {
+      $.ajax({
+        type: "GET",
+        url: `/testdb?no=${$("#no").val()}`,
+        data: {
+
+        },
+        success: function(res) {
+          $("#resultArea").append(`${res[0].no} / ${res[0].studentNo} / ${res[0].NAME}<br>`);
+        }
+
+      });
+    });
+  </script>
+
+
+
+</body>
+
+</html>

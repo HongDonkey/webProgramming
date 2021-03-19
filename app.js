@@ -56,11 +56,18 @@ app.get('/form', function(req, res) {
   });
 
 
-app.get('/testdb', function(req, res) {
-console.log(`SELECT no, studentNo, NAME FROM student WHERE no=${req.query.no}`);
-  connection.query(`SELECT no, studentNo, NAME FROM student WHERE no=${req.query.no}`,
-    function(error, results, fields) {
-          res.send(results);
 
-    });
-});
+
+app.get('/form1', function(req, res) {
+    res.sendfile("210318/form1.html");
+  });
+
+
+app.get('/testdb', function(req, res) {
+  console.log(`SELECT no, studentNo, NAME FROM student WHERE no=${req.query.no}`);
+    connection.query(`SELECT no, studentNo, NAME FROM student WHERE no=${req.query.no}`,
+      function(error, results, fields) {
+            res.send(results);
+
+      });
+  });

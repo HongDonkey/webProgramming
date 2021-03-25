@@ -30,7 +30,15 @@ app.post('/pracPost', function(req, res) {
   connection.query(`INSERT INTO news (title, content)
       VALUES ('${req.body.title}', '${req.body.content}')`,
     function(error, results, fields) {
-      if (error) throw error
-      res.send(results);
+      if (error) {
+        res.send("not ok");
+      }
+      else if(results.affectedRows==1) {  //affectedRows ==1 : 1줄씩 행에 삽입하라
+        res.send("ok");
+      }
     });
+});
+
+app.get('/if', function(req, res) {
+  res.sendfile("210325/if.html");
 });

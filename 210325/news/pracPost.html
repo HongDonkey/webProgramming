@@ -27,6 +27,13 @@
         },
         success: function(res) {
           console.log(res);
+          if(res=='not ok'){
+            alert("입력 실패");
+          }
+          else if(res=='ok'){
+            alert("입력 성공");
+          }
+
         }
 
       });

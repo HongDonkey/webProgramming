@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<body>
+
+
+  title : <input type="text" id="title"><br>
+  content : <textarea name="name" rows="8" cols="80" id="content"></textarea>
+
+  <input type='button' value='입력' id="button">
+  <br>
+
+  <script type="text/javascript">
+    $("#button").click(function() {
+      $.ajax({
+        type: "POST",
+        url: `/pracPost`,
+        data: {
+          title: $("#title").val(),
+          content: $("#content").val()
+        },
+        success: function(res) {
+          console.log(res);
+        }
+
+      });
+    });
+  </script>
+
+
+
+</body>
+
+</html>

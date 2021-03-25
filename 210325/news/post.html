@@ -11,7 +11,9 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <body>
-  no : <input type="text" id="no"><br>
+  stuNo : <input type="text" id="stuNo"><br>
+  NAME : <input type="text" id="NAME"><br>
+  AGE : <input type="text" id="AGE"><br>
 
 
 
@@ -31,13 +33,15 @@
 
     $("#button1").click(function() {
       $.ajax({
-        type: "GET",
-        url: `/testdb`,
+        type: "POST",
+        url: `/postStudent`,
         data: {
-          abc: $("#no2").val(),
+          stuNo : $("#stuNo").val(),
+          NAME : $("#NAME").val(),
+          AGE : $("#AGE").val()
               },
         success: function(res) {
-          $("#resultArea").append(`${res[0].no} / ${res[0].studentNo} / ${res[0].NAME}<br>`);
+        console.log(res);
         }
 
       });

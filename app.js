@@ -1,12 +1,27 @@
-let express = require('express');
+let express = require('express'); //
 let http = require('http');
 let app = express();
-
-//80번 포트에서 서버 리퀘스 리스닝
 let server = http.createServer(app).listen(80);
+//80번 포트에서 서버 리퀘스 리스닝
+//기본 http와 포트번호 구축
+
+
+let bodyParser = require('body-parser')
+ //POST방식으로 사용할때는 bodyParser를 임포트 해줌
+app.use(bodyParser.json());
+//application/josn 방식의 Content-Type 데이터를 받아준다
+app.use(bodyParser.urlencoded({ extended: false }));
+//application/x-www.form-urlencoded방식의
+//Content-Type 데이터를 받아준다(jQuery.ajax의 기본 타입)
+//extended 옵션을 false로 하면 내부에 쿼리스트링 라이브러리 사용
+//true로 내부적으로 qs 라이브러리를 사용하여 URL-encoded data를 파싱
+
+
+
+
 
 let mysql = require('mysql');
-
+//데이터 베이스 연결 변수
 
 let connection = mysql.createConnection({
   host: 'localhost',
@@ -16,7 +31,7 @@ let connection = mysql.createConnection({
 });
 
 connection.connect();
-
+//실제 데이터 베이스의 계정과 테이블을 가져옴
 
 app.get('/', function(req, res) {
   res.send([10, 20, 30]);
@@ -63,11 +78,27 @@ app.get('/form1', function(req, res) {
   });
 
 
-app.get('/testdb', function(req, res) {
-  console.log(`SELECT no, studentNo, NAME FROM student WHERE no=${req.query.no}`);
-    connection.query(`SELECT no, studentNo, NAME FROM student WHERE no=${req.query.no}`,
+app.get('/getStudent', function(req, res) {
+  console.log(req.query);
+    connection.query(`SELECT no, studentNo, NAME FROM student WHERE no=${req.query.abc}`,
       function(error, results, fields) {
             res.send(results);
 
       });
   });
+
+  app.get('/postStudent', function(req, res) {
+      res.sendfile("210325/news/post.html");
+    });
+
+
+  app.post('/postStudent', function(req, res){
+    console.log(`INSERT INTO student (studentNo, NAME, AGE)
+    VALUES ('${req.body.stuNo}', '${req.body.NAME}', ${req.body.AGE})`);
+      connection.query(`INSERT INTO student (studentNo, NAME, AGE)
+      VALUES ('${req.body.stuNo}', '${req.body.NAME}', ${req.body.AGE})`,
+        function(error, results, fields) {
+              res.send(results);
+
+        });
+    });

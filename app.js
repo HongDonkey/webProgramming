@@ -102,3 +102,15 @@ app.get('/getStudent', function(req, res) {
 
         });
     });
+
+    app.get('/0401test', function(req, res) {
+        res.sendfile("210401/0401test.html");
+      });
+
+      app.get('/0401test2', function(req, res) {
+          res.sendfile("210401/0401test2.html");
+        });
+
+        app.get('/star', function(req, res) {
+            res.sendfile("210401/star.html");
+          });

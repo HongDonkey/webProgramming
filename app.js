@@ -22,18 +22,18 @@ app.use(bodyParser.urlencoded({
 
 
 
-let mysql = require('mysql');
-//데이터 베이스 연결 변수
-
-let connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '1234',
-  database: 'test'
-});
-
-connection.connect();
-//실제 데이터 베이스의 계정과 테이블을 가져옴
+// let mysql = require('mysql');
+// //데이터 베이스 연결 변수
+//
+// let connection = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: '1234',
+//   database: 'test'
+// });
+//
+// connection.connect();
+// //실제 데이터 베이스의 계정과 테이블을 가져옴
 
 app.get('/', function(req, res) {
   res.send([10, 20, 30]);
@@ -169,6 +169,7 @@ app.post('/multipleRadio', function(req, res) {
 
 });
 
+<<<<<<< HEAD
 
 app.get('/pracPostNews', function(req, res) {
   res.sendfile("210409/pracPostNews.html");
@@ -196,3 +197,11 @@ app.post('/pracPostNews', function(req, res) {
       res.send(results);
     });
 });
+=======
+        app.get('/star', function(req, res) {
+            res.sendfile("210401/star.html");
+          });
+          app.get('/pracHome', function(req, res) {
+              res.sendfile("210401/pracHome.html");
+            });
+>>>>>>> 365702f85b0a3938e54ad123877fbd46dfe19862

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+<body>
+  <input type="text" value="" id="num1"><br>
+  <input type="text" value="" id="num2"><br>
+  홀:<input type="radio" name="radio" value="odd">
+  짝:<input type="radio" name="radio" value="even"><br>
+  <input type="button" value="단 계산" id="calc"><br>
+
+  <span id="resultArea"></span>
+
+</body>
+<script>
+  $("#calc").click(function() {
+
+
+
+
+
+    let num1 = $("#num1").val();
+    let num2 = $("#num2").val();
+    let result = num1 * num2;
+    $("#resultArea").html("");
+    let valCheck = $('input[name="radio"]:checked').val();
+    console.log(valCheck);
+
+
+    for (let i = 1; i <= num2; i = i + 2) {
+      if (valCheck == "odd") {
+        let result = num1 * i;
+        $("#resultArea").append(`${num1} x ${i} = ${result}<br>`);
+
+        console.log(num1 + "X" + i + "=" + result);
+      }
+    }
+
+    for (let i = 2; i <= num2; i = i + 2) {
+      if (valCheck == "even") {
+        let result = num1 * i;
+        $("#resultArea").append(`${num1} x ${i} = ${result}<br>`);
+
+        console.log(num1 + "X" + i + "=" + result);
+      }
+    }
+  });
+</script>
+
+</html>

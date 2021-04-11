@@ -7,10 +7,12 @@ let server = http.createServer(app).listen(80);
 
 
 let bodyParser = require('body-parser')
- //POST방식으로 사용할때는 bodyParser를 임포트 해줌
+//POST방식으로 사용할때는 bodyParser를 임포트 해줌
 app.use(bodyParser.json());
 //application/josn 방식의 Content-Type 데이터를 받아준다
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 //application/x-www.form-urlencoded방식의
 //Content-Type 데이터를 받아준다(jQuery.ajax의 기본 타입)
 //extended 옵션을 false로 하면 내부에 쿼리스트링 라이브러리 사용
@@ -67,53 +69,61 @@ app.get('/css', function(req, res) {
 
 
 app.get('/form', function(req, res) {
-    res.sendfile("210318/form.html");
-  });
+  res.sendfile("210318/form.html");
+});
 
 
 
 
 app.get('/form1', function(req, res) {
-    res.sendfile("210318/form1.html");
-  });
+  res.sendfile("210318/form1.html");
+});
 
 
 app.get('/getStudent', function(req, res) {
   console.log(req.query);
-    connection.query(`SELECT no, studentNo, NAME FROM student WHERE no=${req.query.abc}`,
-      function(error, results, fields) {
-            res.send(results);
+  connection.query(`SELECT no, studentNo, NAME FROM student WHERE no=${req.query.abc}`,
+    function(error, results, fields) {
+      res.send(results);
 
-      });
-  });
-
-  app.get('/postStudent', function(req, res) {
-      res.sendfile("210325/news/post.html");
     });
+});
+
+app.get('/postStudent', function(req, res) {
+  res.sendfile("210325/news/post.html");
+});
 
 
-  app.post('/postStudent', function(req, res){
-    console.log(`INSERT INTO student (studentNo, NAME, AGE)
+app.post('/postStudent', function(req, res) {
+  console.log(`INSERT INTO student (studentNo, NAME, AGE)
     VALUES ('${req.body.stuNo}', '${req.body.NAME}', ${req.body.AGE})`);
-      connection.query(`INSERT INTO student (studentNo, NAME, AGE)
+  connection.query(`INSERT INTO student (studentNo, NAME, AGE)
       VALUES ('${req.body.stuNo}', '${req.body.NAME}', ${req.body.AGE})`,
-        function(error, results, fields) {
-              res.send(results);
+    function(error, results, fields) {
+      res.send(results);
 
-        });
     });
+});
 
-    app.get('/0401test', function(req, res) {
-        res.sendfile("210401/0401test.html");
-      });
+app.get('/0401test', function(req, res) {
+  res.sendfile("210401/0401test.html");
+});
 
-      app.get('/0401test2', function(req, res) {
-          res.sendfile("210401/0401test2.html");
-        });
+app.get('/0401test2', function(req, res) {
+  res.sendfile("210401/0401test2.html");
+});
 
-        app.get('/star', function(req, res) {
-            res.sendfile("210401/star.html");
-          });
-          app.get('/pracHome', function(req, res) {
-              res.sendfile("210401/pracHome.html");
-            });
+app.get('/star', function(req, res) {
+  res.sendfile("210401/star.html");
+});
+app.get('/pracHome', function(req, res) {
+  res.sendfile("210401/pracHome.html");
+});
+
+app.get('/multiple', function(req, res) {
+  res.sendfile("210409/multiple.html");
+});
+
+app.get('/multipleprac', function(req, res) {
+  res.sendfile("210409/multiplePrac.html");
+});

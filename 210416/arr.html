@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+<body>
+  hihi
+
+</body>
+<script>
+  //   console.log(7);
+  //   console.log(11);
+  //   console.log(15);
+  //   console.log(19);
+  //   console.log(23);
+  //
+  // for(let i = 0; i < 5; i++){
+  //   let a = 4*i+7
+  //   console.log(a);
+  // }
+
+  // let arr = [];
+  // arr[0] = 0;
+  // arr[1] = 1;
+  // arr[2] = 2;
+  // arr[3] = 3;
+  // arr[4] = 4;
+  //
+  // for (let i = 0; i < 5; i++) {
+  //   arr[i] = i
+  // }
+
+
+  //[1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 를 출력하라
+  let arr1 = [];
+  for (let i = 0; i < 10; i++) {
+    arr1[i] = i + 1
+  }
+  console.log(arr1);
+
+  //[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] 를 출력하라
+  let arr2 = [];
+  for (let i = 0; i < 11; i++) {
+    let a = 2 * i
+    arr2[i] = a
+  }
+  console.log(arr2);
+
+
+  //["abc1", "abc2", "abc3", "abc4", "abc5", "abc6", "abc7"] 를 출력하라
+
+  let arr3 = [];
+  for (let i = 0; i < 7; i++) {
+    let str = "abc"
+    arr3[i] = str + (i + 1)
+  }
+  console.log(arr3);
+
+  //[1, 4, 7, 10, 13, 16, 19, 22, 25] 를 출력하라
+  let arr4 = [];
+  for (let i = 0; i < 9; i++) {
+    let a = 3 * i + 1
+    arr4[i] = a
+  }
+  console.log(arr4);
+
+  //1~300까지 숫자 찍으면서 369에 해당하는 숫자에 짝을 출력
+  for (let i = 0; i < 100; i++) {
+    let str = "" + (i + 1);
+    let jjak = ""
+    for (let j = 0; j < str.length; j++) {
+      if (str[j] % 3 == 0 && str[j] != 0) {
+        jjak += "짝"
+
+      }
+    }
+    if (jjak.length > 0) {
+      str = jjak;
+    }
+    console.log(str)
+  };
+
+
+
+  // for(let k=0;k<300;k++) {
+  //   let number = k;
+  //   let numberString = number + "";
+  //
+  //   let jjakCount = 0;
+  //   for(let j=0;j<numberString.length;j++) {
+  //     if(numberString[j]%3==0 && numberString[j]!=0) {
+  //       jjakCount++;
+  //     }
+  //   }
+  //   let jjakString = "";
+  //   if(jjakCount==0) {
+  //     console.log(numberString);
+  //   }
+  //   else {
+  //       for(let i=0;i<jjakCount;i++) {
+  //         jjakString += "짝";
+  //       }
+  //       console.log(jjakString);
+  //   }
+  // }
+</script>
+
+</html>

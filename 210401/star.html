@@ -11,7 +11,6 @@
 
 </body>
 <script>
-
   // 오름차순
   //   for(let i = 1; i < 20; i=i+2) {
   //     star = "";
@@ -41,10 +40,10 @@
 
 
 
-//이등변 삼각형
+  //이등변 삼각형
 
 
-  for (let i = 1; i < 12; i = i+2) {
+  for (let i = 1; i < 12; i = i + 2) {
     let star = "";
 
     for (let j = 0; j < i; j++) {
@@ -53,8 +52,8 @@
     console.log(star)
 
   }
-  for (let i = 1; i < 9; i = i+2) {
-    let star ="";
+  for (let i = 1; i < 9; i = i + 2) {
+    let star = "";
 
     for (let j = 10; j > i; j--) {
       star += "*"
@@ -65,7 +64,7 @@
   }
 
 
-// 역삼각형
+  // 역삼각형
 
   for (let i = 0; i < 15; i = i + 2) {
     star = ""
@@ -75,7 +74,21 @@
     console.log(star)
   }
 
+  console.log("-----------------");
+  // 이등변삼각형(가운데 출력)
 
+  for (let i = 0; i < 8; i++) {
+    star = ""
+
+    for (let j = 0; j < 7 - i; j++) {
+      star += " "
+    }
+    for (let j = 0; j < 2 * i + 1; j++) {
+
+      star += "*"
+    }
+    console.log(star)
+  }
 </script>
 
 </html>

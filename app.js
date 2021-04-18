@@ -22,17 +22,17 @@ app.use(bodyParser.urlencoded({
 
 
 
-let mysql = require('mysql');
+// let mysql = require('mysql');
 //데이터 베이스 연결 변수
 
-let connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '1234',
-  database: 'test'
-});
+// let connection = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: '1234',
+//   database: 'test'
+// });
 
-connection.connect();
+// connection.connect();
 //실제 데이터 베이스의 계정과 테이블을 가져옴
 
 app.get('/', function(req, res) {

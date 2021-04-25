@@ -45,27 +45,41 @@
 
 <script>
   $("#calc").click(function() {
-
-    let sum1 = $("#num1").val();
-    let sum2 = $("#num2").val();
-    let sum3 = $("#num3").val();
-    let result = 0;
-    $("#resultArea").html("");
+    let num1 = $("#num1").val();
+    let num2 = $("#num2").val();
+    let num3 = $("#num3").val();
+    let res1 = 0
+    let res2 = 0
+    let res3 = 0
+    let i = 0
+    let j = 0
+    let k = 0
+    let result = res1 + res2 + res3
     for (let i = 0; i < $('input[name="num1"]').length; i++) {
-      for (let j = 0; j < $('input[name="num2"]').length; j++) {
-        for (let k = 0; k < $('input[name="num3"]').length; k++) {
-          if ($('input[name="num1"]')[i].checked && $('input[name="num2"]')[j].checked && $('input[name="num3"]')[k].checked) {
-            result = (i * sum1) + (j * sum2) + (k * sum3)
-            console.log((i * sum1) + (j * sum2) + (k * sum3));
-            $("#resultArea").append(`${i} x ${sum1} + ${j} x ${sum2} + ${k} x ${sum3} = ${result}<br>`);
-          }
-
-        }
+      if ($('input[name="num1"]')[i].checked) {
+        let res1 = i * num1
+        console.log(res1);
       }
+
+
     }
+    for (let i = 0; i < $('input[name="num2"]').length; i++) {
+      if ($('input[name="num2"]')[i].checked) {
+        let res2 = i * num2
+        console.log(res2);
+      }
 
-  })
+    }
+    for (let i = 0; i < $('input[name="num3"]').length; i++) {
+      if ($('input[name="num3"]')[i].checked) {
+        let res3 = i * num3
+        console.log(res3);
+      }
 
+    }
+ $("#resultArea").append(`${i} x ${num1} + ${j} x ${num2} + ${k} x ${num3} = ${result}<br>`);
+  });
+  
   // console.log($('input[name="num"]')[0].checked);
 </script>
 

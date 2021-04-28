@@ -49,22 +49,38 @@
     let sum1 = $("#num1").val();
     let sum2 = $("#num2").val();
     let sum3 = $("#num3").val();
-    let result = 0;
+    let rn1_nums = 0;
+    let rn2_nums = 0;
+    let rn3_nums = 0;
+    let resnums = 0;
     $("#resultArea").html("");
-    for (let i = 0; i < $('input[name="num1"]').length; i++) {
-      for (let j = 0; j < $('input[name="num2"]').length; j++) {
-        for (let k = 0; k < $('input[name="num3"]').length; k++) {
-          if ($('input[name="num1"]')[i].checked && $('input[name="num2"]')[j].checked && $('input[name="num3"]')[k].checked) {
-            result = (i * sum1) + (j * sum2) + (k * sum3)
-            console.log((i * sum1) + (j * sum2) + (k * sum3));
-            $("#resultArea").append(`${i} x ${sum1} + ${j} x ${sum2} + ${k} x ${sum3} = ${result}<br>`);
-          }
+    for (i = 0; i < $('input[name="num1"]').length; i++){
+     if ($('input[name="num1"]')[i].checked)
+     rn1_nums = i;
+     if ($('input[name="num2"]')[i].checked)
+     rn2_nums = i;
+     if ($('input[name="num3"]')[i].checked)
+     rn3_nums = i;
 
-        }
-      }
+   let eachrn1 = rn1_nums * sum1;
+   let eachrn2 = rn2_nums * sum2;
+   let eachrn3 = rn3_nums * sum3;
+
+   let resnums = eachrn1 + eachrn2 + eachrn3;
+
+
+
+
+
+
+
     }
+    $("#resultArea").append(`(${rn1_nums} x ${sum1})
+                          + (${rn2_nums} x ${sum2})
+                          + (${rn3_nums} x ${sum3}) = ${resnums} <br>`);
+      console.log(`(${rn1_nums} x ${sum1}) + (${rn2_nums} x ${sum2}) + (${rn3_nums} x ${sum3}) = ${resnums}`);
 
-  })
+  });
 
   // console.log($('input[name="num"]')[0].checked);
 </script>

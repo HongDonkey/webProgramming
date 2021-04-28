@@ -127,3 +127,17 @@ app.get('/multiple', function(req, res) {
 app.get('/multipleprac', function(req, res) {
   res.sendfile("210409/multiplePrac.html");
 });
+
+app.get('/arr', function(req, res) {
+  res.sendfile("210416/arr.html");
+});
+
+app.get('/arr2', function(req, res) {
+  res.sendfile("210422/arr2.html");
+});
+app.get('/sum', function(req, res) {
+  res.sendfile("210422/sum.html");
+});
+app.get('/what', function(req, res) {
+  res.sendfile("210422/what.html");
+});

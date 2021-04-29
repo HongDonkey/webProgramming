@@ -21,7 +21,7 @@
   <input type='button' value='버튼1' id="button1">
   <br>
   <span id="resultArea"></span>
-  <script type="text/javascript">
+  <script>
     // document.getElementById("button1").addEventListener("click", function () {
     // console.log(document.getElementById("loginId").value, document.getElementById("password").value);
     // });
@@ -32,12 +32,12 @@
     $("#button1").click(function() {
       $.ajax({
         type: "GET",
-        url: `/testdb`,
+        url: `/getStudent`,
         data: {
-          abc: $("#no2").val(),
-              },
+          abc: $("#no").val(),
+        },
         success: function(res) {
-          $("#resultArea").append(`${res[0].no} / ${res[0].studentNo} / ${res[0].NAME}<br>`);
+          $("#resultArea").append(`${res[0].no} / ${res[0].studentNo} / ${res[0].NAME} / ${res[0].AGE}<br>`);
         }
 
       });

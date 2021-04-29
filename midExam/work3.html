@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+</head>
+
+<body>
+  <div id="testDiv">
+    <input type="button" value="추가" id=add>
+    <input type="button" value="출력" id=print>
+  </div>
+<span id="resultArea"></span>
+
+</body>
+<script>
+
+  $('#add').click(function() {
+    $("#testDiv").prepend("<input type='text' value='' class = 'num'><br>")
+
+  });
+</script>
+<script>
+
+  $('#print').click(function() {
+    let sum = 0;
+
+    $('.num').each(function() {
+      sum += Number($(this).val());
+    });
+
+      $("#resultArea").append(`결과 : ${sum}<br>`);
+  });
+</script>
+
+</html>

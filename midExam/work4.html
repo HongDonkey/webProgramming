@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style media="screen">
+
+  </style>
+</head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<body>
+  studeuntNo : <input type="text" id="stuNo"><br>
+  studentName : <input type="text" id="NAME"><br>
+
+  <input type='button' value='입력' id="insert">
+  <br>
+  <span id="resultArea"></span>
+  <script type="text/javascript">
+
+
+    $("#insert").click(function() {
+      $.ajax({
+        type: "POST",
+        url: `/work4`,
+        data: {
+          stuNo : $("#stuNo").val(),
+          NAME : $("#NAME").val()
+                    },
+        success: function(res) {
+        console.log(res);
+        }
+
+      });
+    });
+  </script>
+
+</body>
+
+</html>

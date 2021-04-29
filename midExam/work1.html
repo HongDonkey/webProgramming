@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+<body>
+
+  <input type="text" value="" id="num1"><br>
+  <input type="text" value="" id="num2"><br>
+  <input type="button" value="출력" id="calc"><br>
+</body>
+<script>
+  $("#calc").click(function() {
+
+    let num1 = $("#num1").val();
+    let num2 = $("#num2").val();
+
+
+    let sumResult = num1 * 1 + num2 * 1;
+
+    let diffResult = num1 - num2;
+    console.log(num1 + " + " + num2 + " = " + sumResult);
+    if (diffResult >= 0) {
+      diffResult = num1 - num2;
+      console.log(num1 + " - " + num2 + " = " + diffResult);
+    }
+
+
+    if (diffResult < 0) {
+      diffResult = diffResult * -1
+      console.log(num1 + " - " + num2 + " = " + diffResult);
+    }
+
+    let multiResult = num1 * num2;
+    console.log(num1 + " X " + num2 + " = " + multiResult);
+
+
+    if (num1 >= num2) {
+      let divResult = num1 / num2;
+      console.log(num1 + " ÷ " + num2 + " = " + divResult);
+    }
+
+
+    if (num1 <= num2) {
+      let divResult = num2 / num1;
+      console.log(num2 + " ÷ " + num1 + " = " + divResult);
+    }
+
+
+
+
+
+
+
+
+
+  });
+</script>
+
+</html>

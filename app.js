@@ -22,18 +22,18 @@ app.use(bodyParser.urlencoded({
 
 
 
-// let mysql = require('mysql');
-// //데이터 베이스 연결 변수
-//
-// let connection = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: '1234',
-//   database: 'test'
-// });
-//
-// connection.connect();
-// //실제 데이터 베이스의 계정과 테이블을 가져옴
+let mysql = require('mysql');
+//데이터 베이스 연결 변수
+
+let connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '1234',
+  database: 'test'
+});
+
+connection.connect();
+//실제 데이터 베이스의 계정과 테이블을 가져옴
 
 app.get('/', function(req, res) {
   res.send([10, 20, 30]);
@@ -82,7 +82,7 @@ app.get('/form1', function(req, res) {
 
 app.get('/getStudent', function(req, res) {
   console.log(req.query);
-  connection.query(`SELECT no, studentNo, NAME FROM student WHERE no=${req.query.abc}`,
+  connection.query(`SELECT no, studentNo, NAME, AGE FROM student WHERE no=${req.query.abc}`,
     function(error, results, fields) {
       res.send(results);
 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+</head>
+
+<body>
+  1.<br>
+  1<input type="radio" name="group1" value="1">
+  2<input type="radio" name="group1" value="2">
+  3<input type="radio" name="group1" value="3">
+  4<input type="radio" name="group1" value="4">
+  5<input type="radio" name="group1" value="5">
+  6<input type="radio" name="group1" value="6">
+  7<input type="radio" name="group1" value="7">
+  8<input type="radio" name="group1" value="8">
+  9<input type="radio" name="group1" value="9">
+  10<input type="radio" name="group1" value="10"><br><br>
+  2.<br>
+  1<input type="radio" name="group2" value="1">
+  2<input type="radio" name="group2" value="2">
+  3<input type="radio" name="group2" value="3">
+  4<input type="radio" name="group2" value="4">
+  5<input type="radio" name="group2" value="5">
+  6<input type="radio" name="group2" value="6">
+  7<input type="radio" name="group2" value="7">
+  8<input type="radio" name="group2" value="8">
+  9<input type="radio" name="group2" value="9">
+  10<input type="radio" name="group2" value="10"><br><br>
+  3.<br>
+  1<input type="radio" name="group3" value="1">
+  2<input type="radio" name="group3" value="2">
+  3<input type="radio" name="group3" value="3">
+  4<input type="radio" name="group3" value="4">
+  5<input type="radio" name="group3" value="5">
+  6<input type="radio" name="group3" value="6">
+  7<input type="radio" name="group3" value="7">
+  8<input type="radio" name="group3" value="8">
+  9<input type="radio" name="group3" value="9">
+  10<input type="radio" name="group3" value="10"><br><br>
+
+  <input type="button" value="출력" id="calc"><br>
+</body>
+<script>
+  $("#calc").click(function() {
+
+
+    let check1 = $('input[name="group1"]:checked').val();
+    let check2 = $('input[name="group2"]:checked').val();
+    let check3 = $('input[name="group3"]:checked').val();
+
+    let checkList = []
+    checkList[0] = check1
+    checkList[1] = check2
+    checkList[2] = check3
+
+    // console.log(checkList); // 삽입 디버깅
+
+    for (let i = 0; i < checkList.length - 1; i++) {
+      for (let j = i + 1; j < checkList.length; j++) {
+        if (checkList[i] <= checkList[j]) {
+          let temp = checkList[i]
+          checkList[i] = checkList[j]
+          checkList[j] = temp;
+        }
+
+
+      }
+    }
+    // console.log(checkList); // 정렬 디버깅
+
+    console.log(Math.pow(checkList[0], checkList[checkList.length - 1]));
+
+
+
+  });
+</script>
+
+</html>

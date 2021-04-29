@@ -11,6 +11,7 @@
   <input type="text" value="" id="num1"><br>
   <input type="text" value="" id="num2"><br>
   <input type="button" value="단 계산" id="calc">
+  <br>
 
   <span id="resultArea"></span>
 
@@ -22,6 +23,7 @@
     let num2 = $("#num2").val();
     let result = num1 * num2;
       $("#resultArea").html("");
+
       for (let i = 1; i <= num2; i++) {
         let result = num1 * i;
         $("#resultArea").append(`${num1} x ${i} = ${result}<br>`);

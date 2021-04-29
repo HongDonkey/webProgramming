@@ -123,6 +123,9 @@ app.get('/pracHome', function(req, res) {
 app.get('/multiple', function(req, res) {
   res.sendfile("210409/multiple.html");
 });
+app.get('/multipleradio', function(req, res) {
+  res.sendfile("210409/multipleradio.html");
+});
 
 app.get('/multipleprac', function(req, res) {
   res.sendfile("210409/multiplePrac.html");

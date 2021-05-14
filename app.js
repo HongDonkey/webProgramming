@@ -144,3 +144,82 @@ app.get('/sum', function(req, res) {
 app.get('/what', function(req, res) {
   res.sendfile("210422/what.html");
 });
+
+app.get('/buyitem', function(req, res) {
+  res.sendfile("210514/buyitem.html");
+});
+app.get('/maxPrice', function(req, res) {
+  let price = Number(req.query.price) // buyItem.html의 ajax url정보를 정수형으로 가져옴
+  console.log(price);
+  priceDict = [{name:"item1",price:1000},
+{name:"itemm2",price:5000},
+{name:"itemmm3",price:10000},
+{name:"iteem4",price:30000},
+{name:"itttem5",price:50000},
+{name:"iiiitem6",price:100000},
+{name:"iteem7",price:500000}] // item의 이름정보와 가격을 배열에 넣음
+  if (price < 1000) { // 보유금액이 천원보다 작다면
+    let alertMent = "구매 불가"; //가장 싼 item1도 살 수 없기 떄문에 "구매불가"를 출력함
+    res.send(alertMent); //"구매불가"를 응답으로 보냄
+  } else if (price >= 1000) { // 보유금액이 천원보다 같거나 크다면
+    for (let i = 6; i >= 0; i--) {
+      if (priceDict[i].price <= price) { // 보유금액이 가격 배열의 i번째 값보다 크다면
+        let alertMent = (priceDict[i].name); // priceDict의 이름을 변수에 담음
+        res.send(alertMent); // item순번을 응답으로 보냄
+        break;
+      }
+    }
+  }
+});
+
+// let priceDict = [{name:"item1",price:1000},
+// {name:"itemm2",price:5000},
+// {name:"itemmm3",price:10000},
+// {name:"iteem4",price:30000},
+// {name:"itttem5",price:50000},
+// {name:"iiiitem6",price:100000},
+// {name:"iteem7",price:500000}];
+// //
+// for(let i = 0; i < priceDict.length; i++){
+//   connection.query(`INSERT INTO item(NAME, PRICE) VALUES ("${priceDict[i].name}", ${priceDict[i].price})`)
+// }
+//딕셔너리를 for문으로 테이블에 삽입함
+
+app.get('/insertItem', function(req, res) {
+  res.sendfile("210514/insertItem.html");
+});
+
+app.post('/insertItem', function(req, res) {
+  console.log(`INSERT INTO item (NAME, PRICE)
+    VALUES ('${req.body.NAME}', ${req.body.PRICE})`);
+  connection.query(`INSERT INTO item (NAME, PRICE)
+      VALUES ('${req.body.NAME}', ${req.body.PRICE})`,
+    function(error, results, fields) {
+      res.send(results);
+
+    });
+});
+
+app.get('/buyItemDB', function(req, res) {
+  console.log(req.query);
+  let price = Number(req.query.price)
+  connection.query(`SELECT NAME, PRICE FROM item` ,
+    //쿼리문을 통해서 가져온 item테이블이 결과 값이기 때문에
+    function(error, results, fields) {
+      res.send(results);
+      //result 변수에 담
+      if (price < 1000) { // 보유금액이 천원보다 작다면
+        let alertMent = "구매 불가"; //가장 싼 item1도 살 수 없기 떄문에 "구매불가"를 출력함
+        res.send(alertMent); //"구매불가"를 응답으로 보냄
+      } else if (price >= 1000) { // 보유금액이 천원보다 같거나 크다면
+        for (let i = 6; i >= 0; i--) {
+          if (priceDict[i].price <= price) { // 보유금액이 가격 배열의 i번째 값보다 크다면
+            let alertMent = (priceDict[i].name); // priceDict의 이름을 변수에 담음
+            res.send(alertMent); // item순번을 응답으로 보냄
+            break;
+          }
+        }
+      }
+
+    });
+});

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+<body>
+  가격 :
+  <input type="text" id="price">
+  <input type="button" value="확인" id="confirm">
+</body>
+<script>
+  $('#confirm').click(function() {
+
+      $.ajax({
+        type: "get", //편집의 개념이면 POST지만 단순히 불러오기만 한다면 GET방식이다
+        url: `/maxPrice?price=${$("#price").val()}`, // price의 value값을 price라는 변수에 담음
+        data: {
+
+        },
+        success: function(res){
+          //응답이 왔다면 res문(구매불가 or item의 값)을 출력함
+          alert(res);
+        
+      }
+
+    });
+
+
+  });
+</script>
+
+
+</html>

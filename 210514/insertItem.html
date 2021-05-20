@@ -11,29 +11,36 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <body>
-  이름 : <input type="text" id="NAME"><br>
+  아이템 : <input type="text" id="NAME">
   가격 : <input type="text" id="PRICE"><br>
 
   <input type='button' value='입력' id="insert">
+  <input type='button' value='돌아가기' id="back">
   <br>
-  <span id="resultArea"></span>
+
   <script type="text/javascript">
 
 
     $("#insert").click(function() {
       $.ajax({
         type: "POST",
-        url: `/insertItem`,
+        url: `/insertItem2`,
         data: {
           NAME : $("#NAME").val(),
           PRICE : $("#PRICE").val()
                     },
         success: function(res) {
         console.log(res);
-        }
+        alert(res)
+        // location.href="/insertMain";
+      }
 
       });
     });
+    $("#back").click(function(){
+      location.href="/insertMain";
+    })
+
   </script>
 
 </body>

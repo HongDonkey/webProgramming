@@ -211,13 +211,43 @@ app.get('/insertItem', function(req, res) {
   res.sendfile("210514/insertItem.html");
 });
 
-app.post('/insertItem', function(req, res) {
-  console.log(`INSERT INTO item (NAME, PRICE)
-    VALUES ('${req.body.NAME}', ${req.body.PRICE})`);
-  connection.query(`INSERT INTO item (NAME, PRICE)
-      VALUES ('${req.body.NAME}', ${req.body.PRICE})`,
+app.post('/insertItem2', function(req, res) {
+  let itemName = `${req.body.NAME}`;
+  let itemPrice = `${req.body.PRICE}`;
+  // connection.query(`INSERT INTO item (NAME, PRICE)
+  // VALUES ('${req.body.NAME}', ${req.body.PRICE})`,
+  connection.query(`select * from item where NAME = '${itemName}' or PRICE = ${itemPrice}`,
     function(error, results, fields) {
-      res.send(results);
+      // res.send(results);
+      console.log(results);
+      console.log(itemName);
+
+      if (results.length == 0) {
+        console.log(results.length);
+        connection.query(`INSERT INTO item (NAME, PRICE) VALUES ('${itemName}',${itemPrice})`);
+        let alertment = '입력 성공.'
+        res.send(alertment);
+      }
+
+      else if (results[0].NAME == `${itemName}` && results[0].PRICE == `${itemPrice}`) {
+        let alertment = '동일한 이름, 가격을 가진 아이템이 존재합니다.'
+        res.send(alertment);
+      }
+
+      if (results.length >= 2) {
+        let alertment = '동일한 이름, 가격이 각각 존재합니다.(2개)'
+        res.send(alertment);
+      }
+      if (results.length == 1) {
+        if (results[0].NAME == `${itemName}`) {
+          let alertment = '동일한 이름을 가진 아이템이 존재합니다.'
+          res.send(alertment);
+        }
+        if (results[0].PRICE == `${itemPrice}`) {
+          let alertment = '동일한 가격을 가진 아이템이 존재합니다.'
+          res.send(alertment);
+        }
+      }
 
     });
 });
@@ -345,16 +375,45 @@ app.get('/pracItemDB', function(req, res) {
     function(error, results, fields) {
       res.send(results);
 
-      if(results[0] > price){
+      if (results[0] > price) {
         let alertMent = "구매불가"
         res.send(alertMent);
       }
-      for(let i = 6; i >= 0; i--){
-        if(results[i] <= price){
+      for (let i = 6; i >= 0; i--) {
+        if (results[i] <= price) {
           let alertMent = results[i].name;
           res.send(alertMent);
           break;
         }
+      }
+    })
+});
+
+app.get('/insertMain', function(req, res) {
+  res.sendfile("210520/insertMain.html");
+});
+
+app.get('/chkItem', function(req, res) {
+  console.log(req.query);
+  let price = Number(req.query.price)
+  connection.query(`SELECT * FROM item ORDER BY PRICE`,
+    //쿼리문을 통해서 가져온 item테이블이 결과 값이기 때문에
+    function(error, results, fields) {
+      // res.send(results);
+      //result 변수에 담
+      if (price < 1000) { // 보유금액이 천원보다 작다면
+        let alertMent = "구매 불가"; //가장 싼 item1도 살 수 없기 떄문에 "구매불가"를 출력함
+        res.send(alertMent); //"구매불가"를 응답으로 보냄
+      } else if (price >= 1000) { // 보유금액이 천원보다 같거나 크다면
+        for (let i = (results.length) - 1; i >= 0; i--) {
+          console.log(results, results[i].PRICE <= price, results[i].PRICE, price);
+          if (results[i].PRICE <= price) { // 보유금액이 가격 배열의 i번째 값보다 크다면
+            let alertMent = (results[i].NAME); // priceDict의 이름을 변수에 담음
+            res.send(alertMent); // item순번을 응답으로 보냄
+            break;
+          }
         }
-      })
+      }
+
     });
+});

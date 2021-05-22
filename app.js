@@ -229,20 +229,23 @@ app.post('/insertItem2', function(req, res) {
         res.send(alertment);
       }
 
-      else if (results[0].NAME == `${itemName}` && results[0].PRICE == `${itemPrice}`) {
-        let alertment = '동일한 이름, 가격을 가진 아이템이 존재합니다.'
-        res.send(alertment);
-      }
+
 
       if (results.length >= 2) {
         let alertment = '동일한 이름, 가격이 각각 존재합니다.(2개)'
         res.send(alertment);
       }
-      if (results.length == 1) {
+      else if (results.length == 1) {
+        if (results[0].NAME == `${itemName}` && results[0].PRICE == `${itemPrice}`) {
+          let alertment = '동일한 이름, 가격을 가진 아이템이 존재합니다.'
+          res.send(alertment);
+        }
+
         if (results[0].NAME == `${itemName}`) {
           let alertment = '동일한 이름을 가진 아이템이 존재합니다.'
           res.send(alertment);
         }
+
         if (results[0].PRICE == `${itemPrice}`) {
           let alertment = '동일한 가격을 가진 아이템이 존재합니다.'
           res.send(alertment);
@@ -405,8 +408,7 @@ app.get('/chkItem', function(req, res) {
         let alertMent = "구매 불가"; //가장 싼 item1도 살 수 없기 떄문에 "구매불가"를 출력함
         res.send(alertMent); //"구매불가"를 응답으로 보냄
       } else if (price >= 1000) { // 보유금액이 천원보다 같거나 크다면
-        for (let i = (results.length) - 1; i >= 0; i--) {
-          console.log(results, results[i].PRICE <= price, results[i].PRICE, price);
+        for (let i = results.length - 1; i >= 0; i--) {
           if (results[i].PRICE <= price) { // 보유금액이 가격 배열의 i번째 값보다 크다면
             let alertMent = (results[i].NAME); // priceDict의 이름을 변수에 담음
             res.send(alertMent); // item순번을 응답으로 보냄
@@ -416,4 +418,8 @@ app.get('/chkItem', function(req, res) {
       }
 
     });
+});
+
+app.get('/addDB', function(req, res) {
+  res.sendfile("210522HOME/addDB.html");
 });

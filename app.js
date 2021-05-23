@@ -221,7 +221,7 @@ app.post('/insertItem2', function(req, res) {
       // res.send(results);
       console.log(results);
       console.log(itemName);
-
+      //이름, 가격이 하나라도 겹치지 않으면 입력 
       if (results.length == 0) {
         console.log(results.length);
         connection.query(`INSERT INTO item (NAME, PRICE) VALUES ('${itemName}',${itemPrice})`);
@@ -230,22 +230,24 @@ app.post('/insertItem2', function(req, res) {
       }
 
 
-
+      //results는 배열의 형태로 출력되고 이름이 같거나 가격이 같으면
+      //배열이 2개 이상 출력되기 때문에 results.length가 2 이상인 경우를 구해준다.
       if (results.length >= 2) {
         let alertment = '동일한 이름, 가격이 각각 존재합니다.(2개)'
         res.send(alertment);
       }
       else if (results.length == 1) {
+        //이름, 가격이 모두 같은경우
         if (results[0].NAME == `${itemName}` && results[0].PRICE == `${itemPrice}`) {
           let alertment = '동일한 이름, 가격을 가진 아이템이 존재합니다.'
           res.send(alertment);
         }
-
+        //이름만 같은 경우
         if (results[0].NAME == `${itemName}`) {
           let alertment = '동일한 이름을 가진 아이템이 존재합니다.'
           res.send(alertment);
         }
-
+        //가격이 같은 경우
         if (results[0].PRICE == `${itemPrice}`) {
           let alertment = '동일한 가격을 가진 아이템이 존재합니다.'
           res.send(alertment);

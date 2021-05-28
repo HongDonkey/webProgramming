@@ -435,6 +435,19 @@ app.get('/addDB', function(req, res) {
     console.log(req.query);
     connection.query(`SELECT * FROM item ORDER BY PRICE`,
       function(error, results, fields) {
+
+        res.send(results);
+        console.log(results);
+      });
+  });
+
+  app.delete('/deleteItemList', function(req, res) {
+    let num = req.body.num;
+    //html파일에서 넘어온 num을 재정의
+    console.log(num);
+    connection.query(`DELETE FROM item where NO =${num}`,
+      //item 테이블의 NO의 값과 html에서 넘어온 num의 값이 같다면 삭제하라 
+      function(error, results, fields) {
         res.send(results);
         console.log(results);
       });

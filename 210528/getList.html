@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+      <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <title></title>
+  </head>
+  <body>
+
+    <span id= "resultArea"></span>
+    <input type="button" name="" value="돌아가기" id="back">
+  </body>
+    <script>
+
+$.ajax({
+          type:"GET",
+          url:`/getItemList`,
+          data : {
+            //
+          },
+          success: function(res){
+
+            for (let i = 0; i < res.length; i++) {
+
+                $("#resultArea").append(`<span id=${res[i].NO}>${res[i].NO} / ${res[i].NAME} / ${res[i].PRICE}
+                  <input type="button" name="" value="삭제" id="item${i}" onclick="btnClickConsole(${res[i].NO})">  <br></span>`);
+                  // resultArea부분에 db를 배열의 형태로 받은 res를 출력한다.
+                  // res를 한줄씩 span영역으로 감싼다. (삭제를 한 줄씩 하기 위해서)
+                  // onclick 이벤트 실행 시 btnClickConsole함수의 인자를 ${res[i].NO}로 받는다
+
+            }; //for end
+
+
+
+
+
+          }, //success func end
+
+      }); //ajax end\
+
+
+function btnClickConsole(number){
+//btnClickConsole함수의 인자를 ${res[i].NO}를 number로 받는다.
+
+  $.ajax({
+    type:"delete",
+    url:`/deleteItemList`,
+    data : {
+      num: number
+      //인자 number를 num으로 바꿔 서버로 넘겨준다.
+    },
+    success: function(res){
+      $(`#${number}`).remove();
+      //number = ${res[i].NO}이기 때문에
+      //span영역의 id가 해당하는 줄을 삭제하라.
+    }
+  })
+}
+
+$("#back").click(function(){
+  location.href = "/addDB";
+})
+
+  </script>
+</html>

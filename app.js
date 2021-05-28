@@ -221,7 +221,7 @@ app.post('/insertItem2', function(req, res) {
       // res.send(results);
       console.log(results);
       console.log(itemName);
-      //이름, 가격이 하나라도 겹치지 않으면 입력 
+      //이름, 가격이 하나라도 겹치지 않으면 입력
       if (results.length == 0) {
         console.log(results.length);
         connection.query(`INSERT INTO item (NAME, PRICE) VALUES ('${itemName}',${itemPrice})`);
@@ -425,3 +425,17 @@ app.get('/chkItem', function(req, res) {
 app.get('/addDB', function(req, res) {
   res.sendfile("210522HOME/addDB.html");
 });
+
+
+  app.get('/getList', function(req, res) {
+    res.sendfile("210528/getList.html");
+  });
+
+  app.get('/getItemList', function(req, res) {
+    console.log(req.query);
+    connection.query(`SELECT * FROM item ORDER BY PRICE`,
+      function(error, results, fields) {
+        res.send(results);
+        console.log(results);
+      });
+  });

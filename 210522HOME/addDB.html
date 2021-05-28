@@ -11,26 +11,35 @@
     <br>
     <input type="button" name="" value="확인" id="itemBtn">
     <input type="button" name="" value="입력페이지" id="goToInsertForm">
+    <input type="button" name="" value="목록" id="list">
+
   </body>
   <script>
     $('#itemBtn').click(function() {
-      $.ajax({
-        type: "get",
-        url: `/chkItem`,
-        data: {
-          price: $("#price").val(),
 
-        },
-        success: function(res){
-          console.log(res);
-          alert(res);
-        }
-      });
     });
 
     $("#goToInsertForm").click(function(){
       location.href="/insertItem";
     })
     //210514/insertItem.html 페이지로 이동
+
+    $('#list').click(function() {
+
+      $.ajax({
+        type: "get",
+        url: `/getItemList`,
+        data: {
+
+        success: function(res){
+          console.log(res);
+          alert(res);
+        }
+
+    }
+  });
+  location.href="/getList";
+});
+
   </script>
 </html>

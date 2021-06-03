@@ -5,6 +5,10 @@ let server = http.createServer(app).listen(80);
 //80번 포트에서 서버 리퀘스 리스닝
 //기본 http와 포트번호 구축
 
+const ejs = require("ejs");
+app.set('view engine', 'ejs');
+
+
 
 let bodyParser = require('body-parser')
 //POST방식으로 사용할때는 bodyParser를 임포트 해줌
@@ -212,6 +216,7 @@ app.get('/insertItem', function(req, res) {
 });
 
 app.post('/insertItem2', function(req, res) {
+
   let itemName = `${req.body.NAME}`;
   let itemPrice = `${req.body.PRICE}`;
   // connection.query(`INSERT INTO item (NAME, PRICE)
@@ -446,9 +451,68 @@ app.get('/addDB', function(req, res) {
     //html파일에서 넘어온 num을 재정의
     console.log(num);
     connection.query(`DELETE FROM item where NO =${num}`,
-      //item 테이블의 NO의 값과 html에서 넘어온 num의 값이 같다면 삭제하라 
+      //item 테이블의 NO의 값과 html에서 넘어온 num의 값이 같다면 삭제하라
       function(error, results, fields) {
         res.send(results);
         console.log(results);
       });
   });
+
+  app.get('/updateItem2', function(req, res) {
+    res.sendfile("210603/updateItem.html");
+    // res.render('updateItem', {name:results[0].NAME,price:reuslts[0].PRICE})
+  });
+
+  app.get('/updateItem', function(req, res) {
+    let num = req.query.num;
+    console.log(req.query);
+    connection.query(`SELECT * FROM item WHERE NO = ${num}`,
+      function(error, results, fields) {
+
+        res.send(results);
+        console.log(results);
+      });
+  });
+
+
+  app.put('/insertItem3', function(req, res) {
+    let num = req.body.num;
+    let name = req.body.name;
+    let price = req.body.price;
+    connection.query(`select * from item where NAME = '${name}' or PRICE = ${price}`,
+      function(error, results, fields) {
+    if (results.length == 0) {
+console.log(`UPDATE item SET NAME = '${name}', PRICE = ${price} WHERE NO = ${num}`);
+    connection.query(`UPDATE item SET NAME = '${name}', PRICE = ${price} WHERE NO = ${num}`,
+      function(error, results, fields) {
+        let alertment = '입력 성공.'
+        res.send(alertment);
+      })
+      }
+
+        //results는 배열의 형태로 출력되고 이름이 같거나 가격이 같으면
+        //배열이 2개 이상 출력되기 때문에 results.length가 2 이상인 경우를 구해준다.
+        if (results.length >= 2) {
+          let alertment = '동일한 이름, 가격이 각각 존재합니다.(2개)'
+          res.send(alertment);
+        }
+        else if (results.length == 1) {
+          //이름, 가격이 모두 같은경우
+          if (results[0].NAME == `${name}` && results[0].PRICE == `${price}`) {
+            let alertment = '동일한 이름, 가격을 가진 아이템이 존재합니다.'
+            res.send(alertment);
+          }
+          //이름만 같은 경우
+          if (results[0].NAME == `${name}`) {
+            let alertment = '동일한 이름을 가진 아이템이 존재합니다.'
+            res.send(alertment);
+          }
+          //가격이 같은 경우
+          if (results[0].PRICE == `${price}`) {
+            let alertment = '동일한 가격을 가진 아이템이 존재합니다.'
+            res.send(alertment);
+          }
+        }
+
+      });
+    });

@@ -11,61 +11,60 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <body>
-  아이템 : <input type="text" id="name" ><br>
-  가격 : <input type="text" id="price" ><br>
+  아이템 : <input type="text" id="name"><br>
+  가격 : <input type="text" id="price"><br>
 
   <input type='button' value='수정' id="edit">
   <input type='button' value='돌아가기' id="back">
   <br>
-<span id= "resultArea"></span>
+  <span id="resultArea"></span>
 </body>
-  <script type="text/javascript">
-  let number= location.href.split("?")[1]
+<script type="text/javascript">
+  let number = location.href.split("?")[1]
 
 
 
-        //btnClickConsole함수의 인자를 ${res[i].NO}를 number로 받는다.
+  //btnClickConsole함수의 인자를 ${res[i].NO}를 number로 받는다.
 
-              $.ajax({
-                type: "get",
-                url: `/updateItem`,
-                data: {
-                  num : number,
-                            },
-                success: function(res) {
-                  $("#name").val(res[0].NAME);
-                  $("#price").val(res[0].PRICE);
-                // console.log(res);
-                // alert(res)
-                // location.href="/insertMain";
-              }
+  $.ajax({
+    type: "get",
+    url: `/updateItem`,
+    data: {
+      num: number,
+    },
+    success: function(res) {
+      $("#name").val(res[0].NAME);
+      $("#price").val(res[0].PRICE);
+      // console.log(res);
+      // alert(res)
+      // location.href="/insertMain";
+    }
 
-              });
+  });
 
-              $("#edit").click(function(){
-                $.ajax({
-                type : "put",
-                url : `/insertItem3`,
-                data : {
-                  num : number,
-                  name : $("#name").val(),
-                  price : $("#price").val(),
-                },
-                  success : function(res){
-                    console.log(res);
-                    alert(res);
-                  }
-                })
-              });
+  $("#edit").click(function() {
+    $.ajax({
+      type: "put",
+      url: `/insertItem3`,
+      data: {
+        num: number,
+        name: $("#name").val(),
+        price: $("#price").val(),
+      },
+      success: function(res) {
+        console.log(res);
+        alert(res);
+      }
+    })
+  });
 
-        //btnClickConsole함수의 인자를 ${res[i].NO}를 number로 받는다.
+  //btnClickConsole함수의 인자를 ${res[i].NO}를 number로 받는다.
 
 
-        $("#back").click(function(){
-          location.href = "/addDB";
-        })
-
-  </script>
+  $("#back").click(function() {
+    location.href = "/addDB";
+  })
+</script>
 
 
 

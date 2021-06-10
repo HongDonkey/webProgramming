@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style media="screen">
+
+  </style>
+</head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<body>
+  학생 수정 <br>
+  학번 : <input type="text" id="no"><br>
+  이름 : <input type="text" id="name"><br>
+  javascript : <input type="text" id="javascript"><br>
+  python : <input type="text" id="python"><br>
+  java : <input type="text" id="java"><br>
+
+  <input type='button' value='수' id="update">
+  <input type='button' value='메인페이지' id="mainpage">
+  <input type='button' value='목록페이지' id="listpage">
+  <br>
+  <span id="resultArea"></span>
+</body>
+<script type="text/javascript">
+  let number = location.href.split("?")[1]
+
+
+
+  //btnClickConsole함수의 인자를 ${res[i].NO}를 number로 받는다.
+
+  $.ajax({
+    type: "get",
+    url: `/updateItem`,
+    data: {
+      num: number,
+    },
+    success: function(res) {
+      $("#name").val(res[0].NAME);
+      $("#price").val(res[0].PRICE);
+      // console.log(res);
+      // alert(res)
+      // location.href="/insertMain";
+    }
+
+  });
+
+  $("#edit").click(function() {
+    $.ajax({
+      type: "put",
+      url: `/insertItem3`,
+      data: {
+        num: number,
+        name: $("#name").val(),
+        price: $("#price").val(),
+      },
+      success: function(res) {
+        console.log(res);
+        alert(res);
+      }
+    })
+  });
+
+  //btnClickConsole함수의 인자를 ${res[i].NO}를 number로 받는다.
+
+
+  $("#back").click(function() {
+    location.href = "/addDB";
+  })
+</script>
+
+
+
+</html>

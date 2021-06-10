@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style media="screen">
+
+  </style>
+</head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<body>
+  학생 입력 <br>
+  학번 : <input type="text" id="no"><br>
+  이름 : <input type="text" id="name"><br>
+  javascript : <input type="text" id="javascript"><br>
+  python : <input type="text" id="python"><br>
+  java : <input type="text" id="java"><br>
+
+  <input type='button' value='입력' id="insert">
+  <input type='button' value='메인페이지' id="mainpage">
+  <input type='button' value='목록페이지' id="listpage">
+  <br>
+
+</body>
+  <script type="text/javascript">
+
+
+    $("#insert").click(function() {
+      $.ajax({
+        type: "POST",
+        url: `/insertPage2`,
+        data: {
+          stuNo : $("#no").val(),
+          stuName : $("#name").val(),
+          javascript : $("#javascript").val(),
+          python : $("#python").val(),
+          java : $("#java").val()
+
+                    },
+        success: function(res) {
+        console.log(res);
+        alert(res);
+
+        // location.href="/insertMain";
+      }
+
+      });
+    });
+    $("#mainpage").click(function(){
+      location.href="/main";
+    });
+    $("#listpage").click(function(){
+      location.href="/listpage";
+    });
+
+
+
+
+  </script>
+
+
+
+</html>

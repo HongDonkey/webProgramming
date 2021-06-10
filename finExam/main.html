@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  </head>
+  <body>
+    학생관리 프로그램
+    <br>
+    <select id="classSelect" name="classSelect">
+  			<option value="javascript">javascript 최고득점</option>
+
+  			<option value="python">python 최고득점</option>
+
+  			<option value="java">java 최고득점</option>
+
+
+     <input type="button" name="" value="확인" id="itemBtn">
+     <br>
+     <input type="button" name="" value="입력페이지" id="insertPage">
+     <input type="button" name="" value="목록페이지" id="listPage">
+  </body>
+  <script>
+    $('#itemBtn').click(function() {
+
+    });
+
+    $("#insertPage").click(function(){
+      location.href="/insertPage";
+    })
+    //210514/insertItem.html 페이지로 이동
+
+    $('#listPage').click(function() {
+
+      $.ajax({
+        type: "get",
+        url: `/listPage2`,
+        data: {
+
+        success: function(res){
+          console.log(res);
+
+        }
+
+    }
+  });
+  location.href="/listPage";
+});
+
+  </script>
+</html>

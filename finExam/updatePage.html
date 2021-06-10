@@ -18,7 +18,7 @@
   python : <input type="text" id="python"><br>
   java : <input type="text" id="java"><br>
 
-  <input type='button' value='수' id="update">
+  <input type='button' value='수정' id="update">
   <input type='button' value='메인페이지' id="mainpage">
   <input type='button' value='목록페이지' id="listpage">
   <br>
@@ -33,13 +33,17 @@
 
   $.ajax({
     type: "get",
-    url: `/updateItem`,
+    url: `/updatePage2`,
     data: {
       num: number,
     },
     success: function(res) {
-      $("#name").val(res[0].NAME);
-      $("#price").val(res[0].PRICE);
+      $("#no").val(res[0].studentNo);
+      $("#name").val(res[0].studentName);
+      $("#javascript").val(res[0].javascript);
+      $("#python").val(res[0].python);
+      $("#java").val(res[0].java);
+
       // console.log(res);
       // alert(res)
       // location.href="/insertMain";
@@ -47,18 +51,21 @@
 
   });
 
-  $("#edit").click(function() {
+  $("#update").click(function() {
     $.ajax({
       type: "put",
-      url: `/insertItem3`,
+      url: `/updatepage3`,
       data: {
-        num: number,
-        name: $("#name").val(),
-        price: $("#price").val(),
+        num : number,
+        stuNo : $("#no").val(),
+        stuName : $("#name").val(),
+        javascript : $("#javascript").val(),
+        python : $("#python").val(),
+        java : $("#java").val()
       },
       success: function(res) {
         console.log(res);
-        alert(res);
+        
       }
     })
   });
@@ -66,8 +73,12 @@
   //btnClickConsole함수의 인자를 ${res[i].NO}를 number로 받는다.
 
 
-  $("#back").click(function() {
-    location.href = "/addDB";
+
+  $("#mainpage").click(function() {
+    location.href = "/main";
+  })
+  $("#listpage").click(function() {
+    location.href = "/listpage";
   })
 </script>
 

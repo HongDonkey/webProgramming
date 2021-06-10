@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+<script type="text/javascript">
+ function search() {
+   var cls = document.getElementById("classSelect");
+   var clsIndex = document.getElementById("classSelect").options.selectedIndex;
+
+   console.log(cls.options[clsIndex].value);
+ }
+
+  </script>
   <head>
     <meta charset="utf-8">
     <title></title>
@@ -16,20 +25,17 @@
   			<option value="java">java 최고득점</option>
 
 
-     <input type="button" name="" value="확인" id="itemBtn">
+     <input type="button" name="" value="확인" onclick="search();">
      <br>
+   <span id="resultArea"></span>
      <input type="button" name="" value="입력페이지" id="insertPage">
      <input type="button" name="" value="목록페이지" id="listPage">
+
   </body>
   <script>
-    $('#itemBtn').click(function() {
-
-    });
-
     $("#insertPage").click(function(){
       location.href="/insertPage";
     })
-    //210514/insertItem.html 페이지로 이동
 
     $('#listPage').click(function() {
 
@@ -40,13 +46,30 @@
 
         success: function(res){
           console.log(res);
-
         }
-
     }
   });
   location.href="/listPage";
 });
+
+function search() {
+  //btnClickConsole함수의 인자를 ${res[i].NO}를 number로 받는다.
+
+  $.ajax({
+    type: "get",
+    url: `/topClass`,
+    data: {
+
+      //인자 number를 num으로 바꿔 서버로 넘겨준다.
+    },
+    success: function(res) {
+
+      //number = ${res[i].NO}이기 때문에
+      //span영역의 id가 해당하는 줄을 삭제하라.
+    }
+  })
+}
+
 
   </script>
 </html>

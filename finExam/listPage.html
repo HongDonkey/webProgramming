@@ -15,7 +15,7 @@
 <script>
   $.ajax({
     type: "GET",
-    url: `/getItemList`,
+    url: `/listPage2`,
     data: {
       //
     },
@@ -23,9 +23,10 @@
 
       for (let i = 0; i < res.length; i++) {
 
-        $("#resultArea").append(`<span id=${res[i].NO}>${res[i].NO} / ${res[i].NAME} / ${res[i].PRICE}
-                  <input type="button" name="" value="삭제" id="item${i}" onclick="delClickConsole(${res[i].NO})">
-                  <input type="button" name="" value="수정" id="item${i}" onclick="editClickConsole(${res[i].NO})"><br></span>`);
+        $("#resultArea").append(`<span id=${res[i].no}>${res[i].no} / 학번 :  ${res[i].studentNo} / 이름 : ${res[i].studentName} / javascript : ${res[i].javascript}
+          / python : ${res[i].python} / java : ${res[i].java}
+                  <input type="button" name="" value="삭제" id="student${i}" onclick="delClickConsole(${res[i].no})">
+                  <input type="button" name="" value="수정" id="student${i}" onclick="editClickConsole(${res[i].no})"><br></span>`);
         // resultArea부분에 db를 배열의 형태로 받은 res를 출력한다.
         // res를 한줄씩 span영역으로 감싼다. (삭제를 한 줄씩 하기 위해서)
         // onclick 이벤트 실행 시 btnClickConsole함수의 인자를 ${res[i].NO}로 받는다
@@ -60,7 +61,7 @@
   }
 
   function editClickConsole(number) {
-    location.href = `/updateItem2?${number}`;
+    location.href = `/updatePage?${number}`;
   }
 
 

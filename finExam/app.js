@@ -68,6 +68,18 @@ app.get('/listPage2', function(req, res) {
     });
 });
 
+app.delete('/deleteItemList', function(req, res) {
+  let num = req.body.num;
+  //html파일에서 넘어온 num을 재정의
+  console.log(num);
+  connection.query(`DELETE FROM student where NO =${num}`,
+    //item 테이블의 NO의 값과 html에서 넘어온 num의 값이 같다면 삭제하라
+    function(error, results, fields) {
+      res.send(results);
+      console.log(results);
+    });
+});
+
 app.get('/updatePage', function(req, res) {
   res.sendfile("updatePage.html");
   // res.render('updateItem', {name:results[0].NAME,price:reuslts[0].PRICE})
@@ -76,10 +88,40 @@ app.get('/updatePage', function(req, res) {
 app.get('/updatePage2', function(req, res) {
   let num = req.query.num;
   console.log(req.query);
-  connection.query(`SELECT * FROM item WHERE NO = ${num}`,
+  connection.query(`SELECT * FROM student WHERE NO = ${num}`,
     function(error, results, fields) {
 
       res.send(results);
       console.log(results);
     });
 });
+
+app.put('/updatepage3', function(req, res) {
+  connection.query(`select * from item where (studentNo = '${req.body.stuNo}' or
+  studentName = '${req.body.stuName}' or javascript = ${req.body.javascript} or
+  python = ${req.body.python} or java = ${req.body.java})
+  and no != ${req.body.num}`,
+    function(error, results, fields) {
+
+        console.log(`UPDATE student SET studentNo = '${req.body.stuNo}', studentName = '${req.body.stuName}',
+        javascript = ${req.body.javascript}, python = ${req.body.python}, java = ${req.body.java}
+        WHERE no = ${req.body.num}`);
+        connection.query(`UPDATE student SET studentNo = '${req.body.stuNo}', studentName = '${req.body.stuName}',
+        javascript = ${req.body.javascript}, python = ${req.body.python}, java = ${req.body.java}
+        WHERE no = ${req.body.num}`,
+          function(error, results, fields) {
+            res.send(results);
+          })
+
+      })
+    });
+
+    app.get('/topClass', function(req, res) {
+      console.log(req.query);
+      connection.query(`SELECT * FROM student ORDER BY no`,
+        function(error, results, fields) {
+
+          res.send(results);
+          console.log(results);
+        });
+    });

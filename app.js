@@ -8,7 +8,8 @@ let server = http.createServer(app).listen(80);
 const ejs = require("ejs");
 app.set('view engine', 'ejs');
 
-
+const request = require('request'); //크롤링할 때 사용
+const cheerio = require('cheerio'); //크롤링할 때 태그별로 나눠줌
 
 let bodyParser = require('body-parser')
 //POST방식으로 사용할때는 bodyParser를 임포트 해줌
@@ -39,9 +40,9 @@ let connection = mysql.createConnection({
 connection.connect();
 //실제 데이터 베이스의 계정과 테이블을 가져옴
 
-app.get('/', function(req, res) {
-  res.send([10, 20, 30]);
-});
+// app.get('/', function(req, res) {
+//   res.send([10, 20, 30]);
+// });
 
 app.get('/test2', function(req, res) {
   res.send("hello world2");
@@ -514,4 +515,156 @@ app.put('/insertItem3', function(req, res) {
       }
 
     });
+});
+
+app.get('/main', function(req, res) {
+  res.sendfile("210819/main.html");
+  // res.render('updateItem', {name:results[0].NAME,price:reuslts[0].PRICE})
+});
+
+app.get('/001', function(req, res) {
+  res.sendfile("HTML/001/html5.html");
+  // res.render('updateItem', {name:results[0].NAME,price:reuslts[0].PRICE})
+});
+
+app.get('/newsList', function(req, res) {
+  res.sendfile("210826/newsList.html");
+});
+app.get('/getNewsList', function(req, res) {
+  console.log(req.query);
+  connection.query(`SELECT * FROM newslist `,
+    function(error, results, fields) {
+
+      res.send(results);
+      console.log(results);
+    });
+});
+
+
+
+app.get('/insertNews', function(req, res) {
+  res.sendfile("210826/insertnews.html");
+});
+
+app.get('/updateNews', function(req, res) {
+  res.sendfile("210826/updateNews.html");
+});
+
+app.post('/postNews', function(req, res) {
+  console.log(`INSERT INTO newsList (title, contents)
+    VALUES ('${req.body.title}', '${req.body.contents}')`);
+  connection.query(`INSERT INTO newsList (title, contents)
+    VALUES ('${req.body.title}', '${req.body.contents}')`,
+    function(error, results, fields) {
+      res.send(results);
+    });
+});
+
+app.delete('/deleteNews', function(req, res) {
+  console.log(`DELETE FROM newslist WHERE index = ${req.body.index}`);
+  connection.query(`DELETE FROM newslist WHERE index = ${req.body.index}`),
+    function(error, result, fields) {
+      res.send(result);
+    };
+});
+
+app.get('/getNews', function(req, res) {
+  console.log(req.query.index);
+  res.send("ok");
+  connection.query(`SELECT * FROM newslist WHERE ('${req.query.index}')`),
+    function(error, result, fields) {
+      res.send(result);
+    };
+});
+
+
+app.put('/updateNews', function(req, res) {
+  connection.query(`update newslist set title='${req.body.title}', content='${req.body.content}' WHERE index = ${req.body.index};`,
+    function(err, rows, fields) {
+      if (err) {
+        res.send({
+          statusCode: 400,
+          msg: "에러입니다."
+        });
+      }
+      if (rows.affectedRows == 1) {
+        res.send({
+          statusCode: 200,
+          msg: "수정되었습니다."
+        });
+      } else {
+        res.send({
+          statusCode: 400,
+          msg: "에러입니다."
+        });
+      }
+    });
+});
+
+
+app.get('/', function(req, res) {
+  res.sendfile("210902/main.html");
+});
+
+app.get('/stockPage', function(req, res) {
+  res.sendfile("210902/stock.html");
+});
+
+app.get('/stockPrice', function(req, res) {
+  request(`https://polling.finance.naver.com/api/realtime?query=SERVICE_ITEM:263750|SERVICE_RECENT_ITEM:263750,005930,035420,035720,036570&_callback=window.__jindo2_callback._2548`, function(error, response, body) {
+    let stockInfo = body.split("(")[1].slice(0, -1)
+    stockInfo = JSON.parse(stockInfo);
+    console.log(stockInfo.result.areas[0].datas[0].nv);
+    res.send({
+      price: stockInfo.result.areas[0].datas[0].nv
+    })
+  });
+});
+
+app.get('/stockGraph', function(req, res) {
+  res.sendfile("210909/stockGraph.html");
+});
+
+app.get('/menu', function(req, res) {
+  res.sendfile("210909/menu.html");
+});
+
+app.get('/getMenu', function(req, res) {
+  request(`https://www.kopo.ac.kr/kangseo/content.do?menu=262`,
+    function(error, response, body) {
+      const $ = cheerio.load(body)
+      let menuArr = [];
+      let dayArr = [];
+      let tdTags = $("td")
+      for (let i = 0; i < 5; i++) {
+        dayArr.push(tdTags[i * 4].children[2].data)
+        menuArr.push(tdTags[i * 4 + 2].children[1].children[0].data) //식단표를 반복해서 구하기
+      }
+      // console.log(dayArr);
+      // console.log(menuArr);
+      res.send({
+        day: dayArr,
+        menu: menuArr
+      })
+    })
+});
+
+app.get('/day', function(req, res) {
+  res.sendfile("210909/day.html");
+});
+
+app.get('/getDay', function(req, res) {
+  request(`https://www.kopo.ac.kr/kangseo/content.do?menu=262`,
+    function(error, response, body) {
+      const $ = cheerio.load(body)
+      let menuArr = [];
+      let tdTags = $("td")
+        // tdTags = tdTags[0].children[2].data
+        // tdTags[0].children[0] // document.write(getDay2('2021-09-13 00:00:00.0'));
+        day = tdTags[4].children[2].data // 식단표의 요일정보
+      console.log(day);
+      res.send({
+        data: day
+      })
+    })
 });

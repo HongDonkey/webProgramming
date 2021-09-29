@@ -5,6 +5,8 @@ let server = http.createServer(app).listen(80);
 //80번 포트에서 서버 리퀘스 리스닝
 //기본 http와 포트번호 구축
 
+const iconv = require('iconv-lite') // 인코딩을 변환해주는 모듈
+const charset = require('charset') // 해당 사이트의 charset값을 알려준다
 const ejs = require("ejs");
 app.set('view engine', 'ejs');
 
@@ -16,8 +18,8 @@ let bodyParser = require('body-parser')
 app.use(bodyParser.json());
 //application/josn 방식의 Content-Type 데이터를 받아준다
 app.use(bodyParser.urlencoded({
-  extended: false
-}));
+  limit:'50mb'
+  }));
 //application/x-www.form-urlencoded방식의
 //Content-Type 데이터를 받아준다(jQuery.ajax의 기본 타입)
 //extended 옵션을 false로 하면 내부에 쿼리스트링 라이브러리 사용
@@ -611,12 +613,15 @@ app.get('/stockPage', function(req, res) {
 });
 
 app.get('/stockPrice', function(req, res) {
-  request(`https://polling.finance.naver.com/api/realtime?query=SERVICE_ITEM:263750|SERVICE_RECENT_ITEM:263750,005930,035420,035720,036570&_callback=window.__jindo2_callback._2548`, function(error, response, body) {
-    let stockInfo = body.split("(")[1].slice(0, -1)
-    stockInfo = JSON.parse(stockInfo);
+  request(`https://polling.finance.naver.com/api/realtime?query=SERVICE_ITEM:263750|SERVICE_RECENT_ITEM:263750`, function(error, response, body) {
+    // let stockInfo = body.split("(")[1].slice(0, -1)
+
+    stockInfo = JSON.parse(response.body);
+      // console.log(stockInfo.result.areas[0].datas[0]);
     console.log(stockInfo.result.areas[0].datas[0].nv);
     res.send({
-      price: stockInfo.result.areas[0].datas[0].nv
+      price: stockInfo.result.areas[0].datas[0].nv,
+      // stockInfo: stockInfo.result.areas[0].datas[0].nm
     })
   });
 });
@@ -634,37 +639,38 @@ app.get('/getMenu', function(req, res) {
     function(error, response, body) {
       const $ = cheerio.load(body)
       let menuArr = [];
-      let dayArr = [];
+      // let dayArr = [];
       let tdTags = $("td")
-      for (let i = 0; i < 5; i++) {
-        dayArr.push(tdTags[i * 4].children[2].data)
-        menuArr.push(tdTags[i * 4 + 2].children[1].children[0].data) //식단표를 반복해서 구하기
+      for(let i=0;i<5;i++) {
+        // dayArr.push(tdTags[i * 4].children[2].data)
+        menuArr.push(tdTags[i*4+2].children[1].children[0].data) //식단표를 반복해서 구하기
       }
       // console.log(dayArr);
-      // console.log(menuArr);
+      console.log(menuArr);
+      // console.log(error);
       res.send({
-        day: dayArr,
-        menu: menuArr
+        // day: dayArr,
+        menuArr: menuArr
       })
     })
 });
 
-app.get('/day', function(req, res) {
-  res.sendfile("210909/day.html");
-});
+// app.get('/day', function(req, res) {
+//   res.sendfile("210909/day.html");
+// });
 
-app.get('/getDay', function(req, res) {
-  request(`https://www.kopo.ac.kr/kangseo/content.do?menu=262`,
-    function(error, response, body) {
-      const $ = cheerio.load(body)
-      let menuArr = [];
-      let tdTags = $("td")
-        // tdTags = tdTags[0].children[2].data
-        // tdTags[0].children[0] // document.write(getDay2('2021-09-13 00:00:00.0'));
-        day = tdTags[4].children[2].data // 식단표의 요일정보
-      console.log(day);
-      res.send({
-        data: day
-      })
-    })
-});
+// app.get('/getDay', function(req, res) {
+//   request(`https://www.kopo.ac.kr/kangseo/content.do?menu=262`,
+//     function(error, response, body) {
+//       const $ = cheerio.load(body)
+//       let menuArr = [];
+//       let tdTags = $("td")
+//         // tdTags = tdTags[0].children[2].data
+//         // tdTags[0].children[0] // document.write(getDay2('2021-09-13 00:00:00.0'));
+//         day = tdTags[4].children[2].data // 식단표의 요일정보
+//       console.log(day);
+//       res.send({
+//         data: day
+//       })
+//     })
+// });

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <div id="test">
+    </div>
+  </body>
+  <script>
+
+    $.ajax({
+      type: "get",
+      url: `/getDay`,
+      data: {
+      },
+      success: function(res){
+        console.log(res);
+      }
+    });
+  </script>
+</html>

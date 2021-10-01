@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <div id="chart_div"></div>
+
+  </body>
+  <script>
+    google.charts.load('current', {packages: ['corechart', 'line']});
+    google.charts.setOnLoadCallback(drawCurveTypes);
+
+    let perlAbyss = [];
+    let a=0;
+    let interval = setInterval(function(){
+      $.ajax({
+        type: "get",
+        url: `/stockPrice`,
+        data: {
+        },
+        success: function(res){
+          a++;
+        perlAbyss.push([a, res.price]);
+        if(perlAbyss.length > 10) {
+          perlAbyss.shift();
+        }
+          drawCurveTypes();
+        }
+      });
+    }, 1000);
+
+
+
+  function drawCurveTypes() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'X');
+      data.addColumn('number', '펄어비스');
+
+      data.addRows(perlAbyss);
+
+      var options = {
+        hAxis: {
+          title: 'Time'
+        },
+        vAxis: {
+          title: 'Popularity'
+        },
+        series: {
+          1: {curveType: 'function'}
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+  </script>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
+  <div id="dayMenu">
+  </div>
+  <input type="button" id="graph" value="그래프그리기">
+  <input type="button" id="excel" value="엑셀다운로드">
+
+  <div id="chart_div"></div>
+</body>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- 차트 그리는 도구 -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- j쿼리 -->
+
+<script>
+  let weekdays = ['월', '화', '수', '목', '금']
+  let allDailyMenuArr = [];
+
+  $("#excel").click(function() {
+
+    let dailyScore = []
+    for (let i = 0; i < allDailyMenuArr.length; i++) {
+      dailyScore[i] = []
+      for (let j = 0; j < allDailyMenuArr[i].length; j++) {
+        dailyScore[i].push(Number($(`#score_${i}_${j}`).val()))
+      }
+    }
+
+    let reqParam = {};
+    reqParam.allDailyMenuArr = allDailyMenuArr
+    reqParam.dailyScore = dailyScore
+    reqParam = JSON.stringify(reqParam)
+    //JSON 방식을 문자열로 바꿔서 바로 아래 ajax를 통해 서버에 전달
+    $.ajax({
+      type: 'post',
+      url: '/makeExcelFile',
+      data: {
+        reqParam: reqParam
+      },
+      success: function(res) {
+        if (res.msg == 'file made') {
+          location.href = "downloadExcelFile"
+        }
+      }
+    })
+  })
+
+
+  $.ajax({
+    type: 'get',
+    url: '/getMenu',
+    data: {},
+    success: function(res) {
+      // day = res.day
+      // console.log(res);
+      // console.log(day[0]);
+      // console.log(menu[0]);
+      // console.log(typeof(menu)); //result : object
+      // var menu1 = JSON.stringify(menu)
+      // console.log(typeof(menu1)); // result : string
+      // menu1.replace("\n", ",")
+      // console.log(menu1);
+      //해야 하는거 : 메뉴 옆에다 select box 0~10까지 만들기
+      for (let i = 0; i < res.menuArr.length; i++) {
+        $("#dayMenu").append(`${weekdays[i]}요일<br>`)
+        let dailyMenuArr = res.menuArr[i].split("\n,")
+        allDailyMenuArr.push(dailyMenuArr)
+        for (let j = 0; j < dailyMenuArr.length; j++) {
+          let menu = dailyMenuArr[j]
+          $("#dayMenu").append(`${menu}
+              <select id='score_${i}_${j}'>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+              </select><br>`)
+        }
+        //select 박스마다 id값 선언
+        $("#dayMenu").append(`<br>`)
+      }
+    }
+  });
+  $("#graph").click(function() {
+    let dailyAvgArr = [] // 요일별 평균이 담기는 배
+    for (let i = 0; i < allDailyMenuArr.length; i++) {
+      let dailyAvg = 0;
+      for (let j = 0; j < allDailyMenuArr[i].length; j++) {
+        dailyAvg += Number($(`#score_${i}_${j}`).val());
+        // select 박스의 값을 받아 요일별 합을 구함
+      }
+      dailyAvg /= allDailyMenuArr[i].length
+      // console.log(dailyAvg);
+      dailyAvgArr.push([`${weekdays[i]}요일`, dailyAvg])
+    }
+    // console.log(dailyAvgArr);
+    google.charts.load('current', {
+      packages: ['corechart', 'line']
+    });
+    google.charts.setOnLoadCallback(drawCurveTypes);
+
+
+    function drawCurveTypes() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', '요일');
+      data.addColumn('number', '만족도');
+
+      data.addRows(dailyAvgArr);
+      // Math.random() 난수 생성
+
+      var options = {
+        hAxis: {
+          title: 'Time'
+        },
+        vAxis: {
+          title: 'Popularity'
+        },
+        series: {
+          1: {
+            curveType: 'function'
+          }
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+  })
+</script>
+
+</html>

@@ -1,0 +1,43 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+p{
+	border: 1px solid #000000;
+	text-align: justify;
+}
+
+
+.box1{
+	width: 70px;
+	height: 70px;
+	float: left;
+}
+
+.box2{
+	width: 70px;
+	height: 70px;
+	float: left;
+}
+
+.box3{
+	width: 70px;
+	height: 70px;
+	clear: both;
+	/* 새 줄부터 시작한다는 뜻 */
+	float: left;
+}
+
+
+div{
+	width: 500px;
+	height: 500px;
+	padding: 10px;
+	clear: both;
+}
+
+img{
+	float: left;
+	margin: 0px 15px 15px 0px;
+}

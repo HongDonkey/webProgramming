@@ -1,0 +1,56 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+p{
+	border: 1px solid #000000;
+	text-align: justify;
+}
+
+
+
+div{
+	border: 1px solid #000000;
+}
+
+.d1{
+	width: 50px;
+	height: 50px;
+	margin: 10px;
+}
+
+.d2{
+	width: 50px;
+	height: 40px;
+	padding: 10px 0px 0px 0px;
+	/* box-sizing: border-box;
+	 box-sizing 속성은 패딩과 마진 값을 무시하고 넒이 높이 값을 적용한 수치만큼 정확히 맞춰줌 */
+}
+
+.d3{
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin: 10px;
+}
+
+.d4{
+	width: 50px;
+	height: 70px;
+	float: left;
+	margin: 10px;
+}
+
+.d5{
+	width: 300px;
+	height: 70px;
+	clear: both;
+}
+
+.d5>div{
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin: 5px;
+}

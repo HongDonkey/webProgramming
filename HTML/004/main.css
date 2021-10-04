@@ -1,0 +1,51 @@
+@charset "utf-8";
+
+*{
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+
+header, footer, section, article, aside, nav, hgroup, details, menu, figure, figcaption {
+	display: block;
+}
+
+a{
+	color: #6600cc;
+	text-decoration: none;
+}
+a:hover, a:active, a:focus{
+	color: #00cc33;
+}
+
+body{
+	width: 1000px;
+	font-family: "나눔고딕", "맑은 고딕", "돋움", Dotum, Verdana, Tahoma;
+	font-size: 12px;
+	line-height: 1.6em;
+	margin: 0 auto;
+}
+p{
+	text-align: justify;
+}
+h1, h2, h3, h4, h5, h6{
+	color: #333333;
+}
+
+h1{
+	font-size: 2em;
+}
+
+h2{
+	font-size: 1.8em;
+}
+
+div>p{
+	/* div 태그 및 바로 앞에 p 태그에만 적용 */
+	background: #ffff00;
+}
+
+div p{
+	/* div 태그 밑 모든 p 태그에 적용 */
+	border: 1px solid #0000ff;
+}

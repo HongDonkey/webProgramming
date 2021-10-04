@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    로그인 <br>
+    아이디 : <input type="text" id="loginId"><br>
+    비밀번호 : <input type="text" id="loginPwd"><br>
+    <input type="button" value="로그인" id="loginBtn">
+    <input type="button" value="회원가입"><br>
+  </body>
+
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+  <script>
+  // 일반적인 문법 (로그인 ID를 콘솔에 출력)
+  document.getElementById('loginBtn').addEventListener('click', function(){
+    console.log(document.getElementById('loginId').value);
+  });
+
+  // 제이쿼리 문법 (로그인 ID를 콘솔에 출력) - 더 짧고 직관적
+  $("#loginBtn").click(function(){
+    console.log($("#loginId").val());
+  })
+
+  </script>
+</html>

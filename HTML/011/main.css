@@ -1,0 +1,37 @@
+table {
+	width: 600px;
+	border-collapse: collapse;
+	/* 테이블 사용할 때 쓰는 기본 속성 */
+}
+th, td {
+	border: none;
+	padding: 10px 0px 10px 0px;
+}
+th {
+	background-color: #000000;
+	color: #ffffff;
+}
+tr:nth-of-type(even) {
+	background-color: #f3f3f3;
+}
+tr:nth-of-type(odd) {
+	background-color: #dddddd;
+}
+td:nth-child(n+2) {
+	text-align: right;
+}
+tr:last-child {
+	font-weight: bolder;
+}
+td:last-child {
+	font-weight: bolder;
+}
+tr:last-child td:last-child {
+	font-size: 2em;
+}
+tr:nth-last-child(2) {
+	color: green;
+}
+tr:nth-last-child(-n+3) td {
+	text-align: right;
+}

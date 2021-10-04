@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  </head>
+  <body>
+    제목
+    <input type="text" id="title">
+    내용
+    <input type="text" id="contents">
+    <br>
+    <input type="button" name="" value="확인" id="post">
+    <input type="button" name="" value="목록" id="list">
+  </body>
+  <script>
+    $('#post').click(function() {
+      $.ajax({
+        type: "post",
+        url: `/postNews`,
+        data: {
+          title: $("#title").val(),
+          contents: $("#contents").val()
+
+        },
+        success: function(res){
+          console.log(res);
+        }
+      });
+    });
+
+    $("#list").click(function(){
+      location.href="/newsList";
+    })
+    //210514/insertItem.html 페이지로 이동
+    
+
+  </script>
+</html>

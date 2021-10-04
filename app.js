@@ -46,6 +46,12 @@ connection.connect();
 //   res.send([10, 20, 30]);
 // });
 
+const exceljs = require('exceljs');
+//엑셀 파일을 만들기 위한 라이브러리 임포트
+
+var fs = require('fs')
+//node.js에서 기본 제공하는 filesystem
+
 app.get('/test2', function(req, res) {
   res.send("hello world2");
 });
@@ -655,22 +661,110 @@ app.get('/getMenu', function(req, res) {
     })
 });
 
-// app.get('/day', function(req, res) {
-//   res.sendfile("210909/day.html");
-// });
+app.get('/day', function(req, res) {
+  res.sendfile("210909/day.html");
+});
 
-// app.get('/getDay', function(req, res) {
-//   request(`https://www.kopo.ac.kr/kangseo/content.do?menu=262`,
-//     function(error, response, body) {
-//       const $ = cheerio.load(body)
-//       let menuArr = [];
-//       let tdTags = $("td")
-//         // tdTags = tdTags[0].children[2].data
-//         // tdTags[0].children[0] // document.write(getDay2('2021-09-13 00:00:00.0'));
-//         day = tdTags[4].children[2].data // 식단표의 요일정보
-//       console.log(day);
-//       res.send({
-//         data: day
-//       })
-//     })
-// });
+app.get('/getDay', function(req, res) {
+  request(`https://www.kopo.ac.kr/kangseo/content.do?menu=262`,
+    function(error, response, body) {
+      const $ = cheerio.load(body)
+      let menuArr = [];
+      let tdTags = $("td")
+        // tdTags = tdTags[0].children[2].data
+        // tdTags[0].children[0] // document.write(getDay2('2021-09-13 00:00:00.0'));
+        day = tdTags[4].children[2].data // 식단표의 요일정보
+      console.log(day);
+      res.send({
+        data: day
+      })
+    })
+});
+
+app.post('/makeExcelFile', function(req,res) {
+
+  let reqParam = JSON.parse(req.body.reqParam)
+  let allDailyMenuArr = reqParam.allDailyMenuArr
+  let dailyScore = reqParam.dailyScore
+  const wb = new exceljs.Workbook();
+  const ws = wb.addWorksheet('menu');
+  console.log(allDailyMenuArr);
+  console.log(allDailyMenuArr[0]);
+  console.log(allDailyMenuArr[0][0]);
+  console.log(dailyScore)
+  ws.getCell('A1').value = '월'
+  ws.getCell('C1').value = '화'
+  ws.getCell('E1').value = '수'
+  ws.getCell('G1').value = '목'
+  ws.getCell('I1').value = '금'
+
+  for(let i=0;i<allDailyMenuArr.length;i++){
+    let dayMenu = allDailyMenuArr[i];
+
+    for(let j=0;j<dayMenu.length;j++){
+      let menu = dayMenu[j];
+      if(i==0){
+        ws.getCell('A' + (j+2)).value = menu;
+        ws.getCell('B' + (j+2)).value = dailyScore[i][j];
+      }
+      if(i==1){
+        ws.getCell('C' + (j+2)).value = menu;
+        ws.getCell('D' + (j+2)).value = dailyScore[i][j];
+      }
+      if(i==2){
+        ws.getCell('E' + (j+2)).value = menu;
+        ws.getCell('F' + (j+2)).value = dailyScore[i][j];
+      }
+      if(i==3){
+        ws.getCell('G' + (j+2)).value = menu;
+        ws.getCell('H' + (j+2)).value = dailyScore[i][j];
+      }
+      if(i==4){
+        ws.getCell('I' + (j+2)).value = menu;
+        ws.getCell('J' + (j+2)).value = dailyScore[i][j];
+      }
+    }
+    let avg = 0;
+    for(let j=0;j<dayMenu.length;j++){
+      avg += dailyScore[i][j]
+    }
+    avg /= dailyScore[i].length
+    if(i==0){
+      ws.getCell('A' + (dayMenu.length+3)).value = '평균'
+      ws.getCell('B' + (dayMenu.length+3)).value = avg
+    }
+    if(i==1){
+      ws.getCell('C' + (dayMenu.length+3)).value = '평균'
+      ws.getCell('D' + (dayMenu.length+3)).value = avg
+    }
+    if(i==2){
+      ws.getCell('E' + (dayMenu.length+3)).value = '평균'
+      ws.getCell('F' + (dayMenu.length+3)).value = avg
+    }
+    if(i==3){
+      ws.getCell('G' + (dayMenu.length+3)).value = '평균'
+      ws.getCell('H' + (dayMenu.length+3)).value = avg
+    }
+    if(i==4){
+      ws.getCell('I' + (dayMenu.length+3)).value = '평균'
+      ws.getCell('J' + (dayMenu.length+3)).value = avg
+    }
+  }
+  // ws.getCell('A1').value = allDailyMenuArr
+  // ws.getCell('B2').value = dailyScore
+
+  wb.xlsx.writeFile('menu.xlsx').then(function(){
+    res.send({msg : "file made"})
+  })
+
+})
+
+app.get('/downloadExcelFile', function(req,res) {
+  res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+  res.setHeader('Content-Disposition', 'attachment; filename=menu.xlsx')
+  res.sendfile(__dirname + '/menu.xlsx', function(err){
+
+    fs.unlinkSync(__dirname + '/menu.xlsx')
+  })
+
+})

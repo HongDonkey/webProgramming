@@ -1,0 +1,36 @@
+/* 폰트를 사용할 때는 항상 저작권에 유의 */
+@font-face {
+	font-family: 'myfont1';
+	src: url(fonts/NanumBrush.eot?) format('eot'),
+	url(fonts/NanumBrush.woff) format('woff'),
+	url(fonts/NanumBrush.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'myfont2';
+	src:
+	url(fonts/NanumBrush.eot?) format('eot'),
+	url(fonts/NanumBrush.woff) format('woff'),
+	url(fonts/NanumBrush.ttf) format('truetype');
+}
+
+
+p{
+	width: 300px;
+	font-family: myfont2;
+}
+
+.hide{
+	height: 0px;
+	overflow: hidden;
+}
+
+.b2{
+	background: #ffff00;
+	border-radius: 10px;
+	padding: 20px;
+	box-shadow: 5px 5px 5px #000000;
+	width: 100px;
+	font-size: 0.9em;
+	font-family: myfont2;
+}

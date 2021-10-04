@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  </head>
+  <body>
+    제목
+    <input type="text" id="title">
+    내용
+    <input type="text" id="contents">
+    <br>
+    <input type="button" name="" value="확인" id="update">
+    <input type="button" name="" value="목록" id="list">
+  </body>
+  <script>
+
+    let index = location.href.split("?")[1];
+
+    $("#list").click(function(){
+      location.href="/newsList";
+    })
+
+      $.ajax({
+        type: "get",
+        url: `/getNews`,
+        data: {
+          index: index
+        },
+        success: function(res){
+          $("#title").val(res[0].title);
+          $("#contents").val(res[0].contents);
+          // console.log(res);
+        }
+      });
+
+      $("update").click(function(){
+        $.ajax({
+          type:'put',
+          url:'/updateNews',
+          data:{
+            index:index,
+            title:$("#title").val(),
+            contents:$("contents").val(),
+          },
+          success:function(res){
+            alert(res.msg);
+            if(res.statusCode==200) {
+              location.href = '/newsList';
+            }
+          }
+        })
+      });
+
+
+
+  </script>
+</html>

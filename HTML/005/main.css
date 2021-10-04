@@ -1,0 +1,75 @@
+@charset "utf-8";
+
+*{
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+
+header, footer, section, article, aside, nav, hgroup, details, menu, figure, figcaption { 
+	display: block;
+}
+
+a{
+	color: #6600cc;
+	text-decoration: none;
+}
+a:hover, a:active, a:focus{
+	color: #00cc33;
+}
+
+body{
+	width: auto;
+	font-family: "나눔고딕", "맑은 고딕", "돋움", Dotum, Verdana, Tahoma;
+	font-size: 12px;
+	line-height: 1.6em;
+	margin: 0 auto;
+}
+p{
+	text-align: justify;
+}
+h1, h2, h3, h4, h5, h6{
+	color: #333333;
+}
+
+h1{
+	font-size: 2em;
+}
+
+h2{
+	font-size: 1.8em;
+}
+
+
+
+
+div{
+	border: 10px solid #000000;
+}
+
+.d1{
+	width: 50px;
+	height: 50px;
+	margin: 10px;
+	margin: 5px 1px 10px 2px;
+}
+/* margin은 바깥 여백 */
+/* padding은 안쪽 여백 */
+/* 넓이와 높이는 사용할 수 있는 영역의 크기이다. (주의~!! 절대로 차지하고 있는 크기가 아님) */
+
+/* margin: 5px; 네방향 모두 5px로 설정 */
+/* margin: 5px 1px 2px 3px; 위부터 시작해서 시계방향으로 (위 5px, 오른쪽 1px, 아래쪽 2px, 왼쪽 3px) */
+
+.d2{
+	width: 70px;
+	height: 70px;
+	padding: 5px;
+}
+
+
+
+
+
+
+
+

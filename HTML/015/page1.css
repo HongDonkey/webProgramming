@@ -1,0 +1,181 @@
+@charset "utf-8";
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+header, footer, section, article, aside, nav, hgroup, details, menu, figure, figcaption { 
+	display: block;
+}
+
+a{
+	color: #6600cc;
+	text-decoration: none;
+}
+a:hover, a:active, a:focus{
+	color: #00cc33;
+}
+
+body{
+	width: 984px;
+	font-family: "나눔고딕", "맑은 고딕", "돋움", Dotum, Verdana, Tahoma;
+	font-size: 12px;
+	line-height: 1.6em;
+	margin: 0 auto;
+	padding: 8px;
+	position: relative;
+	background: url(img/mainbg.jpg) center top no-repeat;
+}
+/* body에  relative 속성 꼭 넣을것 ie6때문 */
+p{
+	text-align: justify;
+}
+h1, h2, h3, h4, h5, h6{
+	color: #333333;
+}
+
+h1{
+	font-size: 2em;
+}
+
+h2{
+	font-size: 1.8em;
+}
+
+.page_header{
+	width: 984px;
+	padding: 100px 0px 100px 0px; 
+}
+
+.main{
+	width: 962px;
+	padding: 10px;
+	border: 1px solid #999999;
+	background: #ffffff;
+}
+
+.main_nav{
+	width: 922px;
+	padding: 10px 20px 10px 20px;
+	background: url(img/nav_mid.jpg) left top repeat-x;
+	position: relative;
+}
+/* width를 넣지 않으면 ie6에서만 오동작 */
+
+.nav_left{
+	width: 9px;
+	height: 39px;
+	background: url(img/nav_left.jpg) left top no-repeat;
+	position: absolute;
+	left: 0px;
+	top: 0px; 
+}
+
+.nav_right{
+	width: 9px;
+	height: 39px;
+	background: url(img/nav_right.jpg) left top no-repeat;
+	position: absolute;
+	right: 0px;
+	top: 0px; 
+}
+
+.main_nav ul{
+	list-style: none;
+}
+
+.main_nav ul li{
+	display: inline;
+	margin: 0px 20px 0px 20px;
+}
+
+.main_nav ul li a{
+	color: #ffffff;
+	text-decoration: none;
+}
+.main_nav ul li a:hover, .main_nav ul li a:active, .main_nav ul li a:focus{
+	color: #ffff00;
+}
+
+.content{
+	width: 580px;
+	padding: 10px;
+	float: left;
+}
+
+.top_content{
+	width: 560px;
+}
+
+.top_content>article>header{
+	padding: 10px 0px 10px 0px;
+}
+
+.top_content>article>header>h3{
+	font-size: 2em;
+	color: #ff66cc;	
+}
+
+.top_content>article>header>p{
+	font-size: 1.2em;
+	color: #999999;
+}
+
+.top_content>article>header>p>small{
+	margin: 0px 20px 0px 0px;
+}
+
+.top_content>article>p{
+	font-size: 1.2em;
+	color: #666666;
+}
+
+.top_content>article>aside{
+	padding: 10px 10px 10px 40px;
+	width: 300px;
+	border: 2px dashed #999999;
+	float: right;
+	background: url(img/bullet_tag.JPG) left 9px no-repeat;
+	
+}
+
+.top_content>article>img{
+	float: left;
+	margin: 0px 10px 10px 0px;
+}
+
+.top_content>article:after {
+	content:'';
+	display:block;
+	clear:both;
+}
+
+.sidebar{
+	width: 330px;
+	padding: 10px;
+	float: left;
+}
+
+.main:after {
+	content:'';
+	display:block;
+	clear:both;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	height: 3000px;
+	font-size: 12px;
+}
+
+p{
+	text-align: justify;
+	/* 글짜에 대한 정렬 */
+	font-family: "����", "Dotum di", "����", Batang;
+	/* 폰트 지정 */
+	font-size: 2em;
+	/* em은 기본 단위 */
+	font-style: normal;
+	/* 일반, 기울임, 굵게 설정 */
+	line-height: 2em;
+	/* 줄 간격 */
+	letter-spacing: -5px;
+	/* 글자 사이의 간격 */
+	word-spacing: 20px;
+	/* 어절 사이의 간격 */
+	color: #ff0000;
+}

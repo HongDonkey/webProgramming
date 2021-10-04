@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <input type="button" value="주식가격" id="stockPrice">
+
+  <br>
+  <div id="pearlAbyss">
+  </div>
+    <br>
+    <div id="samsung">
+    </div>
+    <br>
+    <div id="ncsoft">
+    </div>
+    <br>
+    <select name="stockGraph" id="stockGraph">
+        <option value="stock_pearlabyss">pearlAbyss</option>
+        <option value="stock_samsung">삼성</option>
+        <option value="stock_ncsoft">NCSOFT</option>
+      </select>
+  <input type="button"  value="그래프그리기" id="graph">
+  <br>
+  <div id="chart_div">
+  </div>
+
+</body>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- 차트 그리는 도구 -->
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- j쿼리 -->
+<script>
+$("#stockPrice").click(function() {
+  $.ajax({
+    type: "get",
+    url: `/getStock`,
+    data: {
+    },
+    success: function(res){
+    $("#pearlAbyss").html(`펄어비스 : ${res.pearlAbyssPrice} 원`);
+    $("#samsung").html(`삼성 : ${res.samsungPrice} 원`)
+    $("#ncsoft").html(`NC : ${res.ncsoftPrice} 원`)
+    }
+  });
+});
+
+$("#graph").click(function() {
+  $.ajax({
+       url : '/findprice',
+       type : 'GET',
+       data : {
+         stockDB: `${$("#stockGraph option:selected").val()}`
+       },
+       success: function(res){
+         console.log(res);
+         graphValue = []
+         for(let i=0;i<res.length; i++){
+           graphValue.push([Number(res[i].index),Number(res[i].price)]);
+           google.charts.load('current', {packages: ['corechart', 'line']});
+           google.charts.setOnLoadCallback(drawCurveTypes);
+
+           function drawCurveTypes() {
+                 var data = new google.visualization.DataTable();
+                 data.addColumn('number', 'index');
+                 data.addColumn('number', 'price');
+
+                 data.addRows(graphValue);
+
+                 var options = {
+                   hAxis: {
+                     title: 'index'
+                   },
+                   vAxis: {
+                     title: 'price'
+                   },
+                   series: {
+                     1: {curveType: 'function'}
+                   }
+                 };
+
+                 var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                 chart.draw(data, options);
+               }
+         }
+         console.log(graphValue);
+
+       }
+});
+})
+</script>
+</html>

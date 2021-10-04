@@ -1,0 +1,40 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  border: none;
+}
+
+th {
+    background-color: #000000;
+    color: #ffffff;
+
+}
+
+tr:nth-of-type(even) {  /* even말고 2n으로 표현가능 */
+  background-color: #f3f3f3
+}
+/* 짝수인 tr 태그에는 해당색 적용 */
+tr:nth-of-type(odd) { /* odd말고 2n+1로 표현가능 */
+  background-color: #dddddd;
+}
+/* 홀수인 tr 태그에는 해당색 적용 */
+
+td:nth-child(n+2){ /* 첫번째 td를 제외한 모든 영역에 왼쪽 정렬*/
+  text-align: left;
+}
+
+tr:last-child {
+  font-weight: bolder;
+}
+
+td:last-child{
+  font-weight: bolder;
+}
+tr:last-child td:last-child {
+  font-size: 24px;
+}
+/* 마지막 행에 마지막 열에만 24픽셀 지정 */

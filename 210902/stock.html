@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <input type="button" value="주식가격" id="stockPrice">
+  <div id="stockArea">
+  </div>
+    <br>
+</body>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+$("#stockPrice").click(function() {
+  $.ajax({
+    type: "get",
+    url: `/stockPrice`,
+    data: {
+    },
+    success: function(res){
+    $("#stockArea").html(`${res.price} 원`);
+    }
+  });
+});
+</script>
+</html>

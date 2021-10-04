@@ -1,0 +1,50 @@
+body{
+	background: none;
+	width: 100%;
+	font-size: 20px;
+}
+
+.page_header, .page_footer{
+	display: none;
+}
+
+.logo{
+	display: block;
+}
+
+.content, .sidebar{
+	float: none;
+}
+
+.main{
+	width: auto;
+}
+
+.main_nav{
+	width: auto;
+}
+
+.content{
+	width: auto;
+}
+
+.content > section.top_content{
+	width: auto;
+}
+
+.mid_content{
+	width: auto;
+}
+
+.mid_content>header{
+	width: auto;
+}
+
+.mid_content>article{
+	width: auto;
+	float: none;
+}
+
+.bot_content>header{
+	width: auto;
+}

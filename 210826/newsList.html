@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+
+</head>
+
+<body>
+  뉴스목록
+  <div id="newsListArea">
+    <input type="button" value="입력" id="goToInsertForm">
+
+    <br>
+  </div>
+  <br>
+
+</body>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+  $.ajax({
+    type: 'get',
+    url: `/getNewsList`,
+    data: {
+      },
+    // 모든 데이터를 가져올 거라면 안에 data안에 내용 필요없음
+    success: function(res) {
+      for (let i = 0; i < res.length; i++) {
+        console.log(res[i])
+        $("#newsListArea").append(`<span id="newsIndex${res[i].index}"> 제목 : ${res[i].title}
+            / 내용 : ${res[i].contents}
+            <input type="button" value="삭제" onclick="deleteNews(${res[i].index})">
+            <input type="button" value="수정" onclick="goToUpdateForm(${res[i].index})"><br></span>`);
+      }
+    }
+  });
+
+  function deleteNews(index) {
+    $.ajax({
+      type: 'delete',
+      url: `/deleteNews`,
+      data: {
+        index: index
+      },
+      // 모든 데이터를 가져올 거라면 안에 data안에 내용 필요없음
+      success: function(res) {
+        $(`#newsIndex${index}`).remove();
+      }
+    });
+  }
+
+  function goToUpdateForm(index) {
+    location.href = `updateNews?${index}`
+  }
+
+  $("#goToInsertForm").click(function() {
+    location.href = "/insertNews";
+  })
+
+
+
+</script>
+
+</html>

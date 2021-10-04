@@ -1,0 +1,27 @@
+a{
+	border: 1px solid #ffffff;
+	outline: none;
+	text-decoration: none;
+}
+
+.imgmap{
+	position: relative;
+}
+
+.link1{
+	width: 50px;
+	height: 30px;
+	position: absolute;
+	left: 30px;
+	top: 50px;
+	text-indent: -9999px;
+}
+
+.link2{
+	width: 100px;
+	height: 40px;
+	position: absolute;
+	left: 330px;
+	top: 150px;
+	text-indent: -9999px;
+}

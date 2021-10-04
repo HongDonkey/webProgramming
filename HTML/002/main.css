@@ -1,0 +1,36 @@
+p{
+	color: #0000ff;
+	background: #ffff00;
+}
+
+#p1{
+	width: 300px;
+	background: #999999;
+	background: red;
+	background: rgb(255,0,0);
+	/* rgb(red,green,blue,투명도) */
+}
+
+/* id 선택자 # */
+
+.p2{
+	width: 200px;
+}
+
+/* class 선택자 . */
+
+
+.p2{
+	width: 400px;
+}
+
+/* 위에서 부터 아래로 스타일이 적용 (즉 아래에 있는게 우선순위가 높음) */
+
+/* but id가 class보다 우선순위가 높음   요소선택자<클래스선택자<아이디선택자 */
+
+
+
+.p3{
+	border: 2px solid #ff0000;
+	background: #ffffff url(img.jpg) left top no-repeat;
+}

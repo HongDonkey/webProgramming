@@ -1,0 +1,308 @@
+@charset "utf-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+header, footer, section, article, aside, nav, hgroup, details, menu, figure, figcaption {
+	display: block;
+}
+/*건너뛰기 링크 처리*/
+.skip {
+	position: absolute;
+	top: -100px;
+	background: #000000;
+	padding: 5px;
+	color: #ffffff;
+}
+.skip:focus {
+	top: 30px;
+	color: #ffffff;
+}
+a {
+	color: #6600cc;
+	text-decoration: none;
+	outline: none;
+}
+a:hover, a:active, a:focus {
+	color: #00cc33;
+}
+body {
+	width: 984px;
+	font-family: "나눔고딕", "맑은 고딕", "돋움", Dotum, Verdana, Tahoma;
+	font-size: 12px;
+	line-height: 1.6em;
+	margin: 0 auto;
+	padding: 8px;
+	position: relative;
+	background: url(img/mainbg.jpg) center top no-repeat;
+}
+/* body에  relative 속성 꼭 넣을것 ie6때문 */
+p {
+	text-align: justify;
+	text-shadow: 0px 0px 5px #666666;
+}
+h1, h2, h3, h4, h5, h6 {
+	color: #333333;
+}
+h1 {
+	font-size: 2em;
+}
+h2 {
+	font-size: 1.8em;
+}
+.logo {
+	display: none;
+}
+.page_header {
+	width: 984px;
+	padding: 100px 0px 100px 0px;
+}
+.main {
+	width: 962px;
+	padding: 10px;
+	border: 1px solid #999999;
+	background: #ffffff;
+}
+.main_nav {
+	width: 922px;
+	padding: 10px 20px 10px 20px;
+	background: url(img/nav_mid.jpg) left top repeat-x;
+	position: relative;
+}
+/* width를 넣지 않으면 ie6에서만 오동작 */
+
+.nav_left {
+	width: 9px;
+	height: 39px;
+	background: url(img/nav_left.jpg) left top no-repeat;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+.nav_right {
+	width: 9px;
+	height: 39px;
+	background: url(img/nav_right.jpg) left top no-repeat;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+}
+.main_nav ul {
+	list-style: none;
+}
+.main_nav ul li {
+	display: inline;
+	margin: 0px 20px 0px 20px;
+}
+.main_nav ul li a {
+	color: #ffffff;
+	text-decoration: none;
+}
+.main_nav ul li a:hover, .main_nav ul li a:active, .main_nav ul li a:focus {
+	color: #ffff00;
+}
+.content {
+	width: 580px;
+	padding: 10px;
+	float: left;
+          border-radius: 12px;
+          background: #cccccc;
+}
+.content > section.top_content {
+	width: 560px;
+}
+.top_content > article {
+	margin: 0px 0px 40px 0px;
+	
+  background-color: #0000ff;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ff0000), to(#0000ff)); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(top, #ff0000, #0000ff); /* Chrome 10+, Saf5.1+, iOS 5+ */
+  background-image:    -moz-linear-gradient(top, #ff0000, #0000ff); /* FF3.6 */
+  background-image:     -ms-linear-gradient(top, #ff0000, #0000ff); /* IE10 */
+  background-image:      -o-linear-gradient(top, #ff0000, #0000ff); /* Opera 11.10+ */
+  background-image:         linear-gradient(to bottom, #ff0000, #0000ff);
+}
+.top_content > article:last-child {
+	margin: 0px 0px 10px 0px;
+}
+.top_content > article:nth-of-type(even) {
+	background: rgba(255,255,0,0.6);
+	color: rgba(255,0,0,0.7);
+}
+.top_content > article > header {
+	padding: 10px 0px 10px 0px;
+}
+.top_content > article > header > h3 {
+	font-size: 2em;
+	color: #ff66cc;
+}
+.top_content > article > header > p {
+	font-size: 1.2em;
+	color: #999999;
+}
+.top_content > article > header > p > small {
+	margin: 0px 20px 0px 0px;
+}
+.top_content > article > p {
+	font-size: 1.2em;
+	color: #666666;
+}
+.top_content > article > aside {
+	padding: 10px 10px 10px 40px;
+	width: 300px;
+	border: 2px dashed #999999;
+	float: right;
+	background: url(img/bullet_tag.JPG) left 9px no-repeat;
+}
+.top_content > article > img {
+	float: left;
+	margin: 0px 10px 10px 0px;
+	border-radius: 12px;
+	border-radius: 5px 0px 10px 20px;
+	-webkit-box-shadow: 3px 3px 4px 0px #000000; /* Saf3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+     -moz-box-shadow: 3px 3px 4px 0px #000000; /* FF3.5 - 3.6 */
+          box-shadow: 3px 3px 4px 0px #000000;
+
+-webkit-transform: skew(7.5deg);  /* Saf3.1+, Chrome */
+     -moz-transform: skew(7.5deg);  /* FF3.5+ */
+      -ms-transform: skew(7.5deg);  /* IE9 */
+       -o-transform: skew(7.5deg);  /* Opera 10.5 */
+          transform: skew(7.5deg);
+
+-webkit-transform: scale(2);  /* Saf3.1+, Chrome */
+     -moz-transform: scale(2);  /* FF3.5+ */
+      -ms-transform: scale(2);  /* IE9 */
+       -o-transform: scale(2);  /* Opera 10.5 */
+          transform: scale(2);
+
+-webkit-transform: scale(2,1);  /* Saf3.1+, Chrome */
+     -moz-transform: scale(2,1);  /* FF3.5+ */
+      -ms-transform: scale(2,1);  /* IE9 */
+       -o-transform: scale(2,1);  /* Opera 10.5 */
+          transform: scale(2,1);
+
+-webkit-transform: translate(20px,10px);  /* Saf3.1+, Chrome */
+     -moz-transform: translate(20px,10px);
+      -ms-transform: translate(20px,10px);
+       -o-transform: translate(20px,10px);
+          transform: translate(20px,10px);
+
+}
+.top_content > article:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.sidebar {
+	width: 330px;
+	padding: 10px;
+	float: left;
+}
+.main:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.mid_content {
+	width: 560px;
+}
+.mid_content > header {
+	width: 520px;
+	background: url(img/mc_mid.jpg) left top repeat-x;
+	padding: 6px 20px 8px 20px;
+	position: relative;
+	margin: 20px 0px 20px 0px;
+}
+.left_hd {
+	width: 7px;
+	height: 33px;
+	background: url(img/mc_left.jpg) left top no-repeat;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+.right_hd {
+	width: 7px;
+	height: 33px;
+	background: url(img/mc_right.jpg) left top no-repeat;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+}
+.mid_content > header > h2 {
+	font-size: 1em;
+	color: #ff6666;
+	float: left;
+}
+.mid_content > header > a {
+	float: right;
+	display: block;
+}
+.mid_content > header:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.mid_content > article {
+	width: 45%;
+	float: left;
+	margin: 0px 10px 20px 10px;
+	-webkit-transition: all 2.3s ease-out;  /* Saf3.2+, Chrome */
+     -moz-transition: all 2.3s ease-out;  /* FF4+ */
+      -ms-transition: all 2.3s ease-out;  /* IE10 */
+       -o-transition: all 2.3s ease-out;  /* Opera 10.5+ */
+          transition: all 2.3s ease-out;
+          opacity: 0.4;
+}
+.mid_content > article:hover {
+	background: #ff0000;
+	background: url(a1.jpg) left top no-repeat,
+	url(a2.jpg) right top no-repeat,
+	url(a3.jpg) left bottom no-repeat,
+	url(a4.jpg) left top repeat;
+}
+
+.mid_content:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.mid_content > article > img {
+	float: left;
+	margin: 0px 10px 10px 0px;
+	border: 4px solid #ffcccc;
+}
+.mid_content > article:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.bot_content > header {
+	width: 520px;
+	background: url(img/mc_mid.jpg) left top repeat-x;
+	padding: 6px 20px 8px 20px;
+	position: relative;
+	margin: 20px 0px 20px 0px;
+}
+.bot_content > header > h2 {
+	font-size: 1em;
+	color: #ff6666;
+	float: left;
+}
+.bot_content > header > a {
+	float: right;
+	display: block;
+}
+.bot_content > header:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.bot_content > ul {
+	list-style-position: inside;
+	padding: 0px 0px 0px 30px;
+}
+.mid_content > article:nth-child(4n+3), .mid_content > article:nth-child(4n+4) {
+	background: #cccccc;
+}

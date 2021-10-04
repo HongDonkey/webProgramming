@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<div id="chart_div"></div>
+  </body>
+  <script>
+    //x축이 0부터 10까지
+    //dog, cat, cow의 값을 0부터 10 사이의 랜덤한 숫자로 1초에 한번씩 새로운 그래프를 그려라
+    google.charts.load('current', {packages: ['corechart', 'line']});
+    google.charts.setOnLoadCallback(drawCurveTypes);
+    let a=1;
+    let interval = setInterval(function(){
+      drawCurveTypes();
+      a++;
+      if(a==4){
+        clearInterval(interval)
+      }
+    }, 1000);
+
+function drawCurveTypes() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'X');
+      data.addColumn('number', 'Dogs');
+      data.addColumn('number', 'Cats');
+      data.addColumn('number', 'Cows')
+
+      let dataArray = [];
+      for(let i=0;i<11;i++){
+        let dog = Math.floor(Math.random()*10);
+        let cat = Math.floor(Math.random()*10);
+        let cow = Math.floor(Math.random()*10);
+        // Math.floor 소수점 뒷자리 버림
+        // Math.random()은 난수지만 소수점이 생기기 때문에 0부터 10까지의 수만 생성해주기 위해 10을 곱함
+        dataArray.push([i, dog, cat, cow])
+      }
+
+      data.addRows(dataArray);
+      // Math.random() 난수 생성
+
+      var options = {
+        hAxis: {
+          title: 'Time'
+        },
+        vAxis: {
+          title: 'Popularity'
+        },
+        series: {
+          1: {curveType: 'function'}
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+
+
+
+  // 100이 1초 즉, 1초마다 난수의 차트를 생성하는 함수를 반복하는 함수
+}
+
+    // let i=1;
+    // let interval = setInterval(function(){
+    //   console.log(1);
+    //   i++;
+    //   if(i==4){
+    //     clearInterval(interval);
+    //   }
+    // }, 1000); // 1000이 1초
+    </script>
+</html>

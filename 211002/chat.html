@@ -4,16 +4,60 @@
 <head>
   <title>Socket.IO chat practice</title>
   <style>
-    body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body {
+      margin: 0;
+      padding-bottom: 3rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
-    #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
-    #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
-    #input:focus { outline: none; }
-    #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+    #form {
+      background: rgba(0, 0, 0, 0.15);
+      padding: 0.25rem;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      height: 3rem;
+      box-sizing: border-box;
+      backdrop-filter: blur(10px);
+    }
 
-    #messages { list-style-type: none; margin: 0; padding: 0; }
-    #messages > li { padding: 0.5rem 1rem; }
-    #messages > li:nth-child(odd) { background: #efefef; }
+    #input {
+      border: none;
+      padding: 0 1rem;
+      flex-grow: 1;
+      border-radius: 2rem;
+      margin: 0.25rem;
+    }
+
+    #input:focus {
+      outline: none;
+    }
+
+    #form>button {
+      background: #333;
+      border: none;
+      padding: 0 1rem;
+      margin: 0.25rem;
+      border-radius: 3px;
+      outline: none;
+      color: #fff;
+    }
+
+    #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #messages>li {
+      padding: 0.5rem 1rem;
+    }
+
+    #messages>li:nth-child(odd) {
+      background: #efefef;
+    }
   </style>
 </head>
 
@@ -36,45 +80,81 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
+  var socket = io()
+  $("#nickname").focus(); //페이지가 로드 되면 아이디가 nickname인 개체에 커서를 둠
+  $("nickname").on("keyup",function(key){ //id가 nickname인 개체에서
+    if(key.keyCode==13) { //엔터키를 눌렀을 때
+      $("#loginBtn").click() //로그인버튼을 클릭하는 이벤트를 수행하라
+    }
+  })
+
+  socket.on('loginFail', function() {
+    console.log('fail');
+    alert('중복된 사용자')
+  });
+
+  socket.on('loginSuccess', function() {
+    console.log('success');
+    $("#loginArea").hide() //서버에 접속이 완료되었다면 로그인 영역을 숨김
+         $("#chatArea").show() // 서버에 접속이 완료되었다면 채팅 영역을 보여줌
+
+
+         //소켓에 접속하는 문장
+         var form = document.getElementById('form') // html문서에서 'form'이라는 아이디를 갖는 개체
+         var input = document.getElementById('input') // html문서에서 'input'이라는 아이디를 갖는 개체
+
+         form.addEventListener('submit', function(e) {
+           e.preventDefault(); //디폴트로 작동하는 방식을 막음 (원래 디폴트 값은 무한 새로고침)
+           if (input.value) {
+             socket.emit('send message', input.value);
+             input.value = '';
+           }
+  });
+        socket.on('get message', function(param) {
+          var item = document.createElement('li');
+          item.textContent = `${param.nickname} : ${param.msg}`;
+          message.appendChild(item);
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+})
   $("#loginBtn").click(function() {
-    $.ajax({
-      type: 'get',
-      url: '/login',
-      data: {
-        nickname: $("#nickname").val()
-      },
-      success: function(res) {
-        if (res == "ok") {
-
-          $("#loginArea").hide() //서버에 접속이 완료되었다면 로그인 영역을 숨김
-          $("#chatArea").show() // 서버에 접속이 완료되었다면 채팅 영역을 보여줌
-
-          var socket = io()
-          //소켓에 접속하는 문장
-          var form = document.getElementById('form') // html문서에서 'form'이라는 아이디를 갖는 개체
-          var input = document.getElementById('input') // html문서에서 'input'이라는 아이디를 갖는 개체
-
-          form.addEventListener('submit', function(e) {
-            e.preventDefault(); //디폴트로 작동하는 방식을 막음 (원래 디폴트 값은 무한 새로고침)
-            if (input.value) {
-              socket.emit('send message', input.value);
-              input.value = '';
-            }
-          });
-
-          socket.on('get message', function(msg) {
-            var item = document.createElement('li');
-            item.textContent = msg;
-            messages.appendChild(item);
-            window.scrollTo(0, document.body.scrollHeight);
-          });
-          console.log(res);
-        } else {
-          alert('중복')
-        }
-
-      }
-    })
+    socket.emit('login', $("#nickname").val())
+    // $.ajax({
+    //   type: 'get',
+    //   url: '/login',
+    //   data: {
+    //     nickname: $("#nickname").val()
+    //   },
+    //   success: function(res) {
+    //     if (res == "ok") {
+    //
+    //       $("#loginArea").hide() //서버에 접속이 완료되었다면 로그인 영역을 숨김
+    //       $("#chatArea").show() // 서버에 접속이 완료되었다면 채팅 영역을 보여줌
+    //
+    //
+    //       //소켓에 접속하는 문장
+    //       var form = document.getElementById('form') // html문서에서 'form'이라는 아이디를 갖는 개체
+    //       var input = document.getElementById('input') // html문서에서 'input'이라는 아이디를 갖는 개체
+    //
+    //       form.addEventListener('submit', function(e) {
+    //         e.preventDefault(); //디폴트로 작동하는 방식을 막음 (원래 디폴트 값은 무한 새로고침)
+    //         if (input.value) {
+    //           socket.emit('send message', input.value);
+    //           input.value = '';
+    //         }
+    //       });
+    //
+    //       socket.on('get message', function(msg) {
+    //         var item = document.createElement('li');
+    //         item.textContent = msg;
+    //         messages.appendChild(item);
+    //         window.scrollTo(0, document.body.scrollHeight);
+    //       });
+    //       console.log(res);
+    //     }
+    //
+    //   }
+    // })
   })
 </script>
 

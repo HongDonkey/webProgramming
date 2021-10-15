@@ -2,12 +2,23 @@ let express = require('express'); //
 let http = require('http');
 let app = express();
 let server = http.createServer(app).listen(80);
+
 //80번 포트에서 서버 리퀘스 리스닝
 //기본 http와 포트번호 구축
 const {
   Server
 } = require("socket.io");
 const io = new Server(server);
+
+let mysql = require('mysql');
+var conn = mysql.createConnection({
+  host: 'localhost',
+  port: 3306,
+  user: 'root',
+  password : '1234',
+  database : 'chat'
+})
+
 
 // app.get('/', (req,res) => {
 //   res.send('<h1>Hello World!</h1>')
@@ -18,6 +29,7 @@ const io = new Server(server);
 // })
 
 let nicknames = []
+
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/chat.html');
@@ -49,7 +61,10 @@ io.on('connection', (socket) => {
         nickname = nicknames[i].nickname
       }
     }
-    io.emit('get message', {msg: msg, nickname: nickname})
+    conn.query(`INSERT INTO chatlog (nickname, msg) values
+    ('${nickname}','${msg}')`, function(err, rows, fields){
+      io.emit('get message', {msg: msg, nickname: nickname})
+    })
   });
 
   socket.on('login', (nickname) => {
@@ -66,8 +81,12 @@ io.on('connection', (socket) => {
       socket.emit('loginFail')
       console.log('fail');
     } else {
-      nicknames.push({nickname: nickname, socketID: socket.id})
-      socket.emit('loginSuccess')
+      conn.query(`SELECT * FROM (SELECT * FROM chatlog ORDER BY NO DESC LIMIT 10) a ORDER BY no`,
+      function(err, rows, fields){
+        nicknames.push({nickname: nickname, socketID: socket.id})
+        socket.emit('loginSuccess', rows)
+      })
+
       console.log('success');
     }
 

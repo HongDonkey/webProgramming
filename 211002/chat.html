@@ -93,7 +93,8 @@
     alert('중복된 사용자')
   });
 
-  socket.on('loginSuccess', function() {
+  socket.on('loginSuccess', function(chatlog) {
+    console.log(chatlog);
     console.log('success');
     $("#loginArea").hide() //서버에 접속이 완료되었다면 로그인 영역을 숨김
          $("#chatArea").show() // 서버에 접속이 완료되었다면 채팅 영역을 보여줌
@@ -102,6 +103,14 @@
          //소켓에 접속하는 문장
          var form = document.getElementById('form') // html문서에서 'form'이라는 아이디를 갖는 개체
          var input = document.getElementById('input') // html문서에서 'input'이라는 아이디를 갖는 개체
+
+         for(let i=0; i<chatlog.length; i++){ //DB에 저장된 내용을 가져옴
+           var item = document.createElement('li');
+           item.textContent = `${chatlog[i].nickname} : ${chatlog[i].msg}`;
+           message.appendChild(item);
+           window.scrollTo(0, document.body.scrollHeight);
+         }
+
 
          form.addEventListener('submit', function(e) {
            e.preventDefault(); //디폴트로 작동하는 방식을 막음 (원래 디폴트 값은 무한 새로고침)

@@ -59,3 +59,11 @@ app.get('/test2', function(req, res) {
 app.get('/for', function(req, res) {
   res.sendfile(__dirname + '/for.html');
 });
+
+app.get('/lotto', function(req, res) {
+  res.sendfile(__dirname + '/lotto.html');
+});
+
+app.get('/double', function(req, res) {
+  res.sendfile(__dirname + '/double_for.html');
+});

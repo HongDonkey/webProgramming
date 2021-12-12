@@ -1,0 +1,17 @@
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+  const settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://api.upbit.com/v1/accounts",
+    "method": "GET",
+    "headers": {
+      "Accept": "application/json"
+    }
+  };
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+
+</script>

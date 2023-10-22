@@ -91,3 +91,7 @@ app.get('/findprice', function (req, res) {
     console.log(result);
   })
 });
+
+app.get('/ajax', function (req, res) {
+  res.sendfile("ajax.html");
+});

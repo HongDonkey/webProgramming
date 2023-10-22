@@ -10,8 +10,15 @@ const charset = require('charset') // 해당 사이트의 charset값을 알려�
 const ejs = require("ejs");
 app.set('view engine', 'ejs');
 
+const fs = require('fs'); //텍스트 파일을 읽고 쓰기 위해 사용
+
+const axios = require('axios');
 const request = require('request'); //크롤링할 때 사용
 const cheerio = require('cheerio'); //크롤링할 때 태그별로 나눠줌
+
+
+
+
 
 let bodyParser = require('body-parser')
 //POST방식으로 사용할때는 bodyParser를 임포트 해줌
@@ -25,6 +32,7 @@ app.use(bodyParser.urlencoded({
 //extended 옵션을 false로 하면 내부에 쿼리스트링 라이브러리 사용
 //true로 내부적으로 qs 라이브러리를 사용하여 URL-encoded data를 파싱
 
+const stoneage = 'http://saforever.net/pet';
 
 
 
@@ -48,9 +56,6 @@ connection.connect();
 
 const exceljs = require('exceljs');
 //엑셀 파일을 만들기 위한 라이브러리 임포트
-
-var fs = require('fs')
-//node.js에서 기본 제공하는 filesystem
 
 app.get('/test2', function(req, res) {
   res.send("hello world2");
